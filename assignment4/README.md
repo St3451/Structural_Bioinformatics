@@ -111,7 +111,7 @@ print("BP distance: " + str(calculate_bp_distance(wt4, mut4)))
 
 ## Exercise 2
 
-Using the base pair probability information of the affected region in `dot_plot_matrix` file (obtained from [RNAsnp webserver](https://rth.dk/resources/rnasnp/)), find the base pair in the wild type sequence with the highest probability and compare it to the probability of the same base pair position in the mutant version.
+Using the base pair probability information of the affected region in `dot_plot_matrix.txt` file (obtained from [RNAsnp webserver](https://rth.dk/resources/rnasnp/)), find the base pair in the wild type sequence with the highest probability and compare it to the probability of the same base pair position in the mutant version.
 
 ```python
 def file_to_matrix(text_file):
@@ -149,10 +149,10 @@ print("WT max value: " + str(WT_max))
 print("MT relative position value: " + str(MT_relat_value) + "\n") 
 ```
 
-#4.Ex
-# In the local region with altered RNA structure find the number of base pairs with pair probabilities 
-# higher then 0.5 and 0.8. Do you see a consistent pattern?
+## Exercise 3 
+In the local region with altered RNA structure find the number of base pairs with pair probabilities higher then 0.5 and 0.8. Do you see a consistent pattern?
 
+```python
 def find_cell_with_higher_prob(matrice):
     """Take a bp prob. matrix as an input and return a list of all the values 
     of the cells with a probability higher than threeshold"""
@@ -189,13 +189,4 @@ print("Mutant higher than 0.8: " + str(len(mt_08plus)))
 print("Mutant higher than 0.5: " + str(len(mt_05plus)))
 print("Ratio MT/WT bp with prob higher than 0.8: " + str(ratio_MT_WT08))
 print("Ratio MT/WT bp with prob higher than 0.5: " + str(ratio_MT_WT05))
-
-import os
-
-def print_filenames(directory):
-    for filename in os.listdir(directory):
-        print("There is :", filename)
-        print("Full path: ", os.path.join(directory, filename))
-        # Try to parse the structure
-
-print_filenames("576823-8972904640_StructureDetails")
+```
