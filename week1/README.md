@@ -31,3 +31,5 @@ select inhib_close_aacids, (/2PTC/B/I/CYS`14) or (/2PTC/B/I/LYS`15) or (/2PTC/B/
 color skyblue, inhib_close_aacids  
 select inhib_close_atoms, trp_inhib within 4 of act_site; color blue, inhib_close_atom;  
 orient; zoom center, 30; set ray_opaque_background, on; ray 2400, 2000; save st3451.png  
+
+'mache cazzo'
