@@ -47,7 +47,7 @@ def print_matrix(matrix:list):
             print(row)
 ```
 
-##### Score cell function
+* __Score cell function__
 ```python
 def score_cell(seq, score_matrix, i, j, minimum_loop_size = 2):
     """
@@ -76,7 +76,7 @@ def score_cell(seq, score_matrix, i, j, minimum_loop_size = 2):
     score_matrix[i][j] = max(score_list)                   
 ```
 
-##### Iterate through the diagonals              
+* __Iterate through the diagonals__             
 ```python
 def dinamic_programming_folding(seq, matrix_lst, min_loop_size):
     """
@@ -89,7 +89,7 @@ def dinamic_programming_folding(seq, matrix_lst, min_loop_size):
             score_cell(seq, matrix_lst, i, j, min_loop_size)                                 
 ```
 
-##### Create a list for the dot bracket notation sequence
+* __Create a list for the dot bracket notation sequence__
 ```python
 def create_lst_db(seq):
     """
@@ -102,7 +102,7 @@ def create_lst_db(seq):
     return lst_db_ini
 ```
 
-##### Backtracking
+* __Backtracking__
 ```python
 def db_build(row, col, dot_brackets_lst, min_loop_size, seq, score_matrix):   # the order of how we decide the conditions will determine which structure will be generated (same base pairs)
     """
@@ -136,7 +136,7 @@ def db_build(row, col, dot_brackets_lst, min_loop_size, seq, score_matrix):   # 
             break
 ```
 
-##### Execution
+* __Execution__
 ```python
 # Set the sequence
 sequence = "AAACUUUCCCAGGG"  
