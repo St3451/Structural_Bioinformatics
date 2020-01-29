@@ -56,8 +56,6 @@ for res1, res2 in close_residues:
 
 ## Exercise 2
 
-![Image](phi-psi_angle_IMAGE.jpg)
-
 ```python
 # Print phi and psi angles for both proteins using Polypeptide class
 ppb = PPBuilder()
@@ -101,3 +99,5 @@ def calc_psi_phi(res1, res2, res3):                   # we need a function that 
     nn = res3['N'].get_vector()                       # nn = nitrogen next residue (r-1)
     psi = calc_dihedral(n, ca, c, nn)
 ```
+
+![Image](phi-psi_angle_IMAGE.jpg)
