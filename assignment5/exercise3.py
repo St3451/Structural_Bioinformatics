@@ -15,16 +15,16 @@ class E_Select(Select):
 
 # Load structure
 p = PDBParser()
-structure = p.get_structure("2PTC", "/home/lpp/BIOINFORMATICS/sb2019/week5/2ptc.pdb")
+s = p.get_structure("trypsin", "2ptc.pdb")
 
 # Create PDBIO object
 io = PDBIO()
 
 # Set the structure
-io.set_structure(structure)
+io.set_structure(s)
 
 # Filename to save to
-outfile = '/home/lpp/BIOINFORMATICS/sb2019/week5/out.pdb'
+outfile = 'out.pdb'
 
 # Create an object of class E_Select defined previously
 select = E_Select()

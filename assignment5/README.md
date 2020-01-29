@@ -165,9 +165,9 @@ com = atom_sum ** (1/n)                              # ** multiplies Vector with
 print(com)                                           # For debugging
 
 ## Output with selection
-io = PDBIO()                                          # Create PDBIO object
-io.set_structure(structure)                           # Set the structure
-outfile = '2ptc-center.pdb'                           # Filename for saving
+io = PDBIO()                                         # Create PDBIO object
+io.set_structure(structure)                          # Set the structure
+outfile = '2ptc-center.pdb'                          # Filename for saving
  
 # Create an object of class CenterSelect defined previously and pass the calculated center-of-mass
 select = CenterSelect(com)

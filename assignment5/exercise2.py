@@ -6,11 +6,11 @@ from Bio.PDB import *
 from Bio.PDB.PDBParser import PDBParser
 
 parser = PDBParser()
-structure=parser.get_structure("Trypsin", "2ptc.pdb")
+s = parser.get_structure("Trypsin", "2ptc.pdb")
 
 # Print phi and psi angles for both proteins using Polypeptide class
 ppb = PPBuilder()
-pp_list = ppb.build_peptides(structure)                                 # Create a list of polypeptide objects
+pp_list = ppb.build_peptides(s)                                 # Create a list of polypeptide objects
 
 for pp in pp_list:                                              # Just to check what we just created
     print(pp)
