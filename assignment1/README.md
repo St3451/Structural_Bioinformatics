@@ -1,4 +1,4 @@
-# Assignment 1
+# Assignment 1 - PyMOL
 
 2PTC is a PDB ﬁle containing trypsin (chain E) and its inhibitor (chain I). The active site of trypsin includes residues 57, 102 and 195.
 
@@ -22,7 +22,7 @@ The image represent the trypsin serine protease and its inhibitor, they are cont
 *	Blue = inhibitor residues 4 A° around the enzyme active site  
     *	Dark blue = atoms of the residues 4 A° around the active site  
     *	Light blue = atoms of the residues that are not 4 A° around the active site  					   
-### Pymol script
+### PyMOL script
 
 delete all; fetch 2PTC  
 set stick_ball; set stick_ball_ratio, 2  
