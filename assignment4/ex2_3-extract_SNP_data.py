@@ -1,4 +1,4 @@
-#Ex 3 
+### Exercise 2 
 # Using the base pair probability information of the affected region find the base pair in the wild type sequence with the
 # highest probability and compare it to the probability of the same base pair position in the mutant version.
 
@@ -43,7 +43,7 @@ print("WT max value: " + str(WT_max))
 print("MT relative position value: " + str(MT_relat_value) + "\n") 
 
 
-#4.Ex
+### Exercise 3
 # In the local region with altered RNA structure find the number of base pairs with pair probabilities 
 # higher then 0.5 and 0.8. Do you see a consistent pattern?
 

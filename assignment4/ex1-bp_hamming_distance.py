@@ -1,4 +1,5 @@
-#Ex 1 and 2
+### Exercise 1
+# Compute both the Hamming and base pair distance of four pairs of sequences
 
 # Hamming distance
 def calculate_hamming_distance(seq1_db, seq2_db):
