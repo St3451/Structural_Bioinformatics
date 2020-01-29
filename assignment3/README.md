@@ -1,4 +1,4 @@
-# Implementation of the Nussinov Algorithm
+# Assignment 3 - Implementation of the Nussinov Algorithm
 
 The Nussinov algorithm for simple RNA folding by computation of the maximum number of base pairs employ a dynamic progrmaming algorithm. Here, this algorithm will be implemented.
 
