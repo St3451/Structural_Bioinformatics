@@ -124,9 +124,11 @@ def file_to_matrix(text_file):
     return lst_matrix
 
 def find_max_top_matrix_triangle(matrice):
-    """Take a matrix (list of list) as input, find the maximum 
-    of its top right triangle and the value of the same cell in the botton
-    left triangle"""
+    """
+    Take a matrix (list of list) as input, find the 
+    maximum of its top right triangle and the value 
+    of the same cell in the botton left triangle
+    """
     WT_max = 0
     WT_max_cell = ()
     for row, elem in enumerate(matrice):           # row is the position and element is the row_list that contain the values
@@ -154,8 +156,11 @@ In the local region with altered RNA structure find the number of base pairs wit
 
 ```python
 def find_cell_with_higher_prob(matrice):
-    """Take a bp prob. matrix as an input and return a list of all the values 
-    of the cells with a probability higher than threeshold"""
+    """
+    Take a bp prob. matrix as an input and return 
+    a list of all the values of the cells with a 
+    probability higher than threeshold
+    """
     wt_08plus = []
     wt_05plus = []
     mt_08plus = []
