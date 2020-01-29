@@ -1,4 +1,4 @@
-# Assignment 2
+# Assignment 2 - PyMOL and PDB
 
 * Pick (any) 3 consecutive letters from your first or last name and look up the corresponding PDB file.
 * Briefly describe the structure (biology, ligands, experimental method etc.)
