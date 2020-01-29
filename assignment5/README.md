@@ -101,4 +101,4 @@ def calc_psi_phi(res1, res2, res3):                   # we need a function that 
 ```
 
 ![Image](phi-psi_angle_IMAGE.jpg)
-![Image]](phi-psi_angle_IMAGE.jpg){:height="50%" width="50%"}
+![Image](phi-psi_angle_IMAGE.jpg){:height="50%" width="50%"}
