@@ -17,13 +17,14 @@ Use trypsin/trypsin inhibitor complex, pdb code `2PC`.
 ## Exercise 1
 
 ```python
+# Import modules
 from Bio import *
 from Bio.PDB import *
 from Bio.PDB.PDBParser import PDBParser
 
-# Create parser object
+# Create parser object and load structure
 parser = PDBParser()
-structure=parser.get_structure("Trypsin", "2ptc.pdb")
+structure = parser.get_structure("Trypsin", "2ptc.pdb")
 
 # Check if two residues are close
 def is_close(res1, res2):
@@ -105,10 +106,6 @@ def calc_psi_phi(res1, res2, res3):                   # we need a function that 
 
 ## Exercise 3
 
-from Bio import *
-from Bio.PDB import *
-from Bio.PDB.PDBParser import PDBParser
-
 ```python
 # Define a class based on Bio.PDB.Select to output chain E only
 class E_Select(Select):
@@ -125,7 +122,7 @@ io = PDBIO()
 io.set_structure(structure)
 
 # Filename to save to
-outfile = '/home/lpp/BIOINFORMATICS/sb2019/week5/out.pdb'
+outfile = 'out.pdb'
 
 # Create an object of class E_Select defined previously
 select = E_Select()
@@ -152,10 +149,8 @@ class CenterSelect(Select):
         else:
             return False
 
-# Load structure
-p = PDBParser()
-s = p.get_structure("2PTC", "/home/lpp/BIOINFORMATICS/sb2019/week5/2ptc.pdb")
-enzyme = s[0]["E"]                                   # structure 0 / chain E
+# Select chain E
+enzyme = structure[0]["E"]                           # model 0, chain E
 
 # Find CA center-of-mass                             # center-of-mass = sum(CA vectors) / (n. CA vectors)
 n = 0                                                # CA counter
@@ -171,8 +166,8 @@ print(com)                                           # For debugging
 
 ## Output with selection
 io = PDBIO()                                                      # Create PDBIO object
-io.set_structure(s)                                               # Set the structure
-outfile = '/home/lpp/BIOINFORMATICS/sb2019/week5/2ptc-center.pdb' # Filename for saving
+io.set_structure(structure)                                               # Set the structure
+outfile = '2ptc-center.pdb' # Filename for saving
  
 # Create an object of class CenterSelect defined previously and pass the calculated center-of-mass
 select = CenterSelect(com)
