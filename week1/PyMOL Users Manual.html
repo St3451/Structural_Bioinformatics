@@ -1,0 +1,627 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<style type="text/css"><!--
+BODY { font-family: serif }
+H1 { font-family: sans-serif }
+H2 { font-family: sans-serif }
+H3 { font-family: sans-serif }
+H4 { font-family: sans-serif }
+H5 { font-family: sans-serif }
+H6 { font-family: sans-serif }
+SUB { font-size: smaller }
+SUP { font-size: smaller }
+PRE { font-family: monospace }
+--></style>
+<title>PyMOL Users Manual</title></head>
+<body>
+<a href="http://pymol.sourceforge.net/newman/user/toc.html">Contents</a>
+<a href="http://pymol.sourceforge.net/newman/user/S0210start_cmds.html">Previous</a>
+<a href="http://pymol.sourceforge.net/newman/user/S0260cartoons.html">Next</a>
+<hr>
+<h1><a name="7">Command Syntax and Atom Selections</a></h1>
+<h2><a name="7_1">Syntax</a></h2>
+<p> A typed PyMOL command always starts with a keyword that calls PyMOL
+ to execute an action. It ends with a carriage return ("enter" on your
+ keyboard).</p>
+<p>The simplest commands consist of a keyword alone. For example, typing<b>
+ quit</b> will end your PyMOL session. The<b> quit</b> command never
+ takes an argument.</p>
+<p> Many commands have default arguments, so you can type the keyword
+ alone and PyMOL will supply the rest. For example, the default argument
+ to<b> zoom</b> is the<i> selection-expression</i><b> all</b>:</p>
+<pre>  
+EXAMPLE
+   
+   <b>PyMOL&gt;</b> zoom                    # All visible representations
+                                  # are included in the view. 
+</pre>
+<p> For some keywords, certain arguments are required and others are
+ supplied by default. For example, the keyword<b> color</b> requires one
+ argument, the<i> color-name</i>. As for<b> zoom</b>, the default<i>
+ selection-expression</i> is<b> all</b>:</p>
+<pre>SYNTAX
+      
+   color <i>color-name</i>  
+      
+   color <i>color-name, selection-expression</i>       
+
+EXAMPLES
+      
+   <b>PyMOL&gt;</b> color red               # All the representations
+                                  # are colored red.    
+      
+   <b>PyMOL&gt;</b> color red, name ca      # Only the representations of
+                                  # atoms named c-alpha are colored red.                                             
+</pre>
+ When you type a command that has more than one argument,<b> color</b><i>
+ color-name, selection-expression</i> in this case, a comma must
+ separate the arguments.
+<p><i> Selection-expression</i>s are an essential type of keyword
+ argument. They can be simple or complex, with several different kinds
+ of syntax.</p>
+<h3><a name="7_1_1">Selection-expressions</a></h3>
+<p><i>Selection-expression</i>s stand for lists of atoms in arguments
+ that are subject to PyMOL commands. You can name the selections to
+ facilitate their re-use, or you can specify them anonymously (without
+ names). Object and selection names may include the upper or lower case
+ characters A/a to Z/z, numerals 0 to 9, and the underscore character
+ (_). Characters to avoid include:</p>
+<pre>! @ # $ % ^ &amp;* ( ) ' " [ ] { } \ | ~ ` &lt;&gt; . ? / 
+</pre>
+<p><i> Selection-expression</i>s describe the class of atoms you are
+ referencing. Most of them require identifiers to complete the
+ specification. For example, the selector<b> resi</b> references
+ biopolymer residues by sequence number, and the identifier gives the
+ number. The selector<b> name</b> references atoms according to the
+ names described in the PDB, and the identifier gives the name (<b>ca</b>
+ for alpha carbons,<b> cb</b> for beta carbons, etc). A handful of<i>
+ selection-expression</i>s don't require identifiers, but most do.</p>
+<p> PyMOL uses several logical operators to increase the generality or
+ specificity of<i> selection-expression</i>s. Logical combinations of
+ selectors can get complex, so PyMOL accepts short forms and macros that
+ express them with a minimum of keystrokes. This section describes
+ named-selections, and then gives the syntax for making selections in a
+ progression from simple one-word selectors to complex combinations of
+ selectors, using macros and short forms.</p>
+<h3><a name="7_1_2">Named Atom Selections</a></h3>
+<p>Atom selections can be named for repeated use by using the<b> select</b>
+ command:</p>
+<pre>SYNTAX
+      
+   select <i> selection-name, selection-expression</i>   
+                                           # The <i> selection-name</i> and  
+                                           # the <i> selection-expression</i> 
+                                           # are both arguments to <b>select</b> 
+                                           # so they are separated by a comma. 
+                                           
+EXAMPLE
+
+   <b>PyMOL&gt;</b> select bb, name c+o+n+ca   # Create an atom selection named "bb"
+                                     # including all atoms named 
+                                     # "C","O","N", or "CA";
+   <b>PyMOL&gt;</b> color red, bb              # color the selection red,
+   <b>PyMOL&gt;</b> hide lines, bb             # hide the line representation,
+   <b>PyMOL&gt;</b> show sticks, bb            # show it using the stick representation,
+   <b>PyMOL&gt;</b> zoom bb                    # and zoom in on it.
+</pre>
+<p> In this case, the<i> selection-expression</i> is the property
+ selector<b> name</b>, which takes the list of identifiers<b> ca+c+n+o</b>
+ to complete the specification. Property selectors and their identifiers
+ are discussed below.</p>
+<p> Named atom selections appear in the PyMOL names list in the control
+ panel. They are distinguished from objects by a surrounding set of
+ parentheses. The control panel options available under the diamond menu
+ differ between objects and atom-selections, because objects and named
+ selections play slightly different roles in PyMOL. Named selections are
+ pointers to subsets of data that are found under an object name. After
+ an object is deleted, the data are no longer available, unless you
+ reload the object. Any named selections that refer to atoms in that
+ object will no longer work. But when named selections are deleted, the
+ data are still available under the object name. Disabling objects
+ eliminates them from the viewer, but disabling named-selections just
+ turns off the pink dots that highlight them in the viewer.</p>
+<p> Atom-selections, named or not, can span multiple objects:</p>
+<pre>EXAMPLE
+
+   <b>PyMOL&gt;</b> load $PYMOL_PATH/test/dat/fc.pdb                                      
+   <b>PyMOL&gt;</b> load $PYMOL_PATH/test/dat/pept.pdb
+
+   <b>PyMOL&gt;</b> select alpha_c, name ca      # The named selection "alpha_c" 
+                                         # is created -- it includes atoms
+                                         # in both "fc" and "pept" objects.
+   <b>PyMOL&gt;</b> color red, name ca             # "CA" atoms in both objects
+                                         # are colored red.                                      
+</pre>
+<p> Named selections will continue working after you have made changes
+ to a molecular structure:</p>
+<pre>EXAMPLE
+
+   <b>PyMOL&gt;</b> load $PYMOL_PATH/test/dat/pept.pdb                                      
+   <b>PyMOL&gt;</b> select bb, name c+o+n+ca     # The named selection "bb" 
+                                       # is created.        
+                                       
+   <b>PyMOL&gt;</b> count_atoms bb               # PyMOL counts 52 atoms in "bb."   
+   
+   <b>PyMOL&gt;</b> remove resi 5                # All atoms in residue 5 are removed 
+                                       # from the object "pept."  
+                                       
+   <b>PyMOL&gt;</b> count_atoms bb               # Now PyMOL counts
+                                       # the remaining 48 atoms in "bb."                                                                                                                                            
+</pre>
+<p> Named selections are static. Only atoms that exist at the time the
+ selection is defined are included in the selection, even if atoms which
+ are loaded subsequently fall within the selection criterion:</p>
+<pre>EXAMPLE
+
+   <b>PyMOL&gt;</b> load $PYMOL_PATH/test/dat/pept.pdb      
+   
+   <b>PyMOL&gt;</b> select static_demo, pept    # The named selection "static_demo" 
+                                      # is created to reference all atoms.  
+                                      
+   <b>PyMOL&gt;</b> count_atoms static_demo     # PyMOL counts 107 atoms 
+                                      # in "static_demo."   
+                                      
+   <b>PyMOL&gt;</b> h_add                       # PyMol adds hydrogens in
+                                      # the appropriate places
+                                      
+   <b>PyMOL&gt;</b> count_atoms static_demo     # PyMOL still counts 107 atoms
+                                      # in "static_demo,"
+   <b>PyMOL&gt;</b> count_atoms                 # even though it counts 200 atoms
+                                      # in "pept." 
+</pre>
+<p> Named selections can also be used in subsequent atom selections:</p>
+<pre>EXAMPLE
+
+   <b>PyMOL&gt;</b> select bb, name c+o+n+ca   # An atom selection named "bb"
+                                     # is made, consisting of all 
+                                     # atoms named "C","O","N", or "CA."
+                                           
+   <b>PyMOL&gt;</b> select c_beta_bb, bb or name cb   
+                                     # An atom selection named "c_beta_bb"
+                                     # is made, consisting of 
+                                     # all atoms named "C", "O", "N", "CA" or "CB."  
+</pre>
+<p> Note that the word "or" is used to select all atoms in the two
+ groups, "bb" and "cb." The word "and" would have selected no atoms
+ because it is interpreted in its boolean logical sense, not its natural
+ language sense. See the subsection on "Selection Algebra" below.</p>
+<h3><a name="7_1_3">Single-word Selectors</a></h3>
+ The very simplest<i> selection-expression</i>s are single-word
+ selectors. These selectors do not take identifiers; they are complete
+ by themselves.
+<center>
+<table border="1">
+<tbody><tr><th align="CENTER">Single Word
+<br>Selector</th><th align="CENTER">Short Form
+<br>Selector</th><th align="CENTER">Description</th></tr>
+<tr><td align="CENTER">all</td><td align="CENTER">*</td><td>All atoms
+ currently loaded into PyMOL</td></tr>
+<tr><td align="CENTER">none</td><td align="CENTER">none</td><td>No atoms
+ (empty selection)</td></tr>
+<tr><td align="CENTER">hydro</td><td align="CENTER">h.</td><td>All
+ hydrogen atoms currently loaded into PyMOL</td></tr>
+<tr><td align="CENTER">hetatm</td><td align="CENTER">het</td><td>All
+ atoms loaded from Protein Data Bank HETATM records</td></tr>
+<tr><td align="CENTER">visible</td><td align="CENTER">v.</td><td>All
+ atoms in enabled objects with at least one visible representation</td></tr>
+<tr><td align="CENTER">present</td><td align="CENTER">pr.</td><td>All
+ atoms with defined coordinates in the current state
+<br> (used in creating movies)</td></tr>
+</tbody></table>
+</center>
+<p> The selector<b> none</b> won't come up much when you are typing
+ commands directly into PyMOL, but it is useful in programming scripts.</p>
+<p> As the table shows, many single-word selectors have short forms to
+ save on typing. Some short forms must be followed by a period and a
+ space, in order to delimit the word. Short forms and long forms have
+ the same effect, so choose the form that suits you:</p>
+<pre>   
+EXAMPLES 
+
+   <b>PyMOL&gt;</b> color blue, all          # It all turns blue.
+   <b>PyMOL&gt;</b> color blue, *
+   
+   <b>PyMOL&gt;</b> hide hydro               # Representations of all 
+   <b>PyMOL&gt;</b> hide h.                  # hydrogen atoms are hidden.
+   
+   <b>PyMOL&gt;</b> show spheres, hetatom    # All the atoms defined as HETATOMS 
+   <b>PyMOL&gt;</b> show spheres, het        # in the PDB input file 
+                                   # are represented as spheres.
+</pre>
+<h3><a name="7_1_4">Property Selectors</a></h3>
+<p> PyMOL reads data files written in PDB, MOL/SDF, Macromodel, ChemPy
+ Model, and Tinker XYZ formats. Some of the data fields in these formats
+ allow PyMOL to assign properties to atoms. You can group and select
+ atoms according to these properties using property selectors and
+ identifiers: the selectors correspond to the fields in the data files,
+ and the identifiers correspond to the target words to match, or the
+ target numbers to compare.</p>
+<p> The items in a list of identifiers are separated by plus signs (+)
+ only. Do not add spaces within a list of identifiers. The selector<b>
+ resi</b> takes (+)-separated lists of identifiers, as in</p>
+<pre>   
+EXAMPLE 
+
+   <b>PyMOL&gt;</b> select nterm, resi 1+2+3          
+</pre>
+<p> or, alternatively, it may take a range given with a dash:</p>
+<pre>   
+EXAMPLE 
+
+   <b>PyMOL&gt;</b> select nterm, resi 1-3          
+</pre>
+<p> However, you will get an error message if you try to combine a list
+ and a range in an identifier to a<b> resi</b> as in "select mistake,
+ resi 1-3+6."</p>
+<p> The identifier for a blank field in an input file is and empty pair
+ of quotes:</p>
+<pre>   
+EXAMPLE 
+
+   <b>PyMOL&gt;</b> select unstruct, ss ""   # A named selection is created
+                                   # to contain all atoms that are not assigned 
+                                   # a secondary structure.        
+</pre>
+<p> Most<i> property selector</i>s select matches to their identifiers:</p>
+<center>
+<table border="1">
+<tbody><tr><th>Matching
+<br>Property
+<br>Selector</th><th align="CENTER"> Short Form
+<br>Selector</th><th> Identifier
+<br> and Example</th></tr>
+<tr><td align="CENTER"> symbol</td><td align="CENTER"> e.</td><td><i>
+ chemical-symbol-list</i>
+<br> list of 1- or 2-letter chemical symbols from the periodic table
+<br>
+<pre><b>PyMOL&gt;</b> select polar, symbol o+n</pre>
+</td></tr>
+<tr><td align="CENTER">name</td><td align="CENTER"> n.</td><td><i>
+ atom-name-list</i>
+<br> list of up to 4-letter codes for atoms in proteins or nucleic acids
+<br>
+<pre><b>PyMOL&gt;</b> select carbons, name ca+cb+cg+cd</pre>
+</td></tr>
+<tr><td align="CENTER">resn</td><td align="CENTER"> r.</td><td><i>
+ residue-name-list</i>
+<br> list of 3-letter codes for amino acids
+<br>
+<pre><b>PyMOL&gt;</b> select aas, resn asp+glu+asn+gln </pre>
+ or list of up to 2-letter codes for nucleic acids
+<br>
+<pre><b>PyMOL&gt;</b> select bases, resn a+g</pre>
+</td></tr>
+<tr><td align="CENTER">resi</td><td align="CENTER"> i.</td><td><i>
+ residue-identifier-list</i>
+<br> list of up to 4-digit residue numbers
+<br>
+<pre><b>PyMOL&gt;</b> select mults10, resi 1+10+100+1000</pre>
+<i> residue-identifier-range</i>
+<br>
+<pre><b>PyMOL&gt;</b> select nterm, resi 1-10</pre>
+</td></tr>
+<tr><td align="CENTER">alt</td><td align="CENTER"> alt</td><td><i>
+ alternate-conformation-identifier-list</i>
+<br> list of single letters
+<pre><b>PyMOL&gt;</b> select altconf, alt a+""</pre>
+</td></tr>
+<tr><td align="CENTER">chain</td><td align="CENTER"> c.</td><td><i>
+ chain-identifier-list</i>
+<br> list of single letters or sometimes numbers
+<br>
+<pre><b>PyMOL&gt;</b> select firstch, chain a</pre>
+</td></tr>
+<tr><td align="CENTER"> segi</td><td align="CENTER"> s.</td><td><i>
+ segment-identifier-list</i>
+<br> list of up to 4 letter identifiers
+<pre><b>PyMOL&gt;</b> select ligand, segi lig </pre>
+</td></tr>
+<tr><td align="CENTER">flag</td><td align="CENTER"> f.</td><td><i>
+ flag-number</i>
+<br> a single integer from 0 to 31
+<br>
+<pre><b>PyMOL&gt;</b> select f1, flag 0</pre>
+</td></tr>
+<tr><td align="CENTER">&nbsp; numeric_type &nbsp;</td><td align="CENTER"> nt.</td><td>
+<i> type-number</i>
+<br> a single integer
+<br>
+<pre><b>PyMOL&gt;</b> select type1, nt. 5</pre>
+</td></tr>
+<tr><td align="CENTER">text_type</td><td align="CENTER"> tt.</td><td><i>
+ type-string</i>
+<br> a list of up to 4 letter codes
+<pre><b>PyMOL&gt;</b> select subset, text_type HA+HC</pre>
+</td></tr>
+<tr><td align="CENTER">id</td><td align="CENTER"> id</td><td><i>
+ external-index-number</i>
+<br> a single integer
+<br>
+<pre><b>PyMOL&gt;</b> select idno, id 23</pre>
+</td></tr>
+<tr><td align="CENTER">index</td><td align="CENTER"> idx.</td><td><i>
+ internal-index-number</i>
+<br> a single integer
+<br>
+<pre><b>PyMOL&gt;</b> select intid, index 11</pre>
+</td></tr>
+<tr><td align="CENTER"> ss</td><td align="CENTER"> ss</td><td><i>
+ secondary-structure-type</i>
+<br> list of single letters
+<br>
+<pre><b>PyMOL&gt;</b> select allstrs, ss h+s+l+""</pre>
+</td></tr>
+</tbody></table>
+</center>
+<p>Other<i> property selector</i>s select by comparison to numeric
+ identifiers:</p>
+<center>
+<table border="1">
+<tbody><tr><th>Numeric
+<br> Selector</th><th align="CENTER"> Short Form</th><th> Argument
+<br> &amp;Example</th></tr>
+<tr><td align="CENTER">b</td><td align="CENTER"> b</td><td><i>
+ comparison-operator b-factor-value</i>
+<br> a real number
+<pre><b>PyMOL&gt;</b> select fuzzy, b &gt; 10</pre>
+</td></tr>
+<tr><td align="CENTER">q</td><td align="CENTER"> q</td><td><i>
+ comparison-operator occupancy-value</i>
+<br> a real number
+<pre><b>PyMOL&gt;</b> select lowcharges, q &lt;0.50</pre>
+</td></tr>
+<tr><td align="CENTER">&nbsp; formal_charge &nbsp;</td><td align="CENTER"> fc.</td><td>
+<i> comparison-operator formal charge-value</i>
+<br> an integer
+<pre><b>PyMOL&gt;</b> select doubles, fc. = -1</pre>
+</td></tr>
+<tr><td align="CENTER">&nbsp; partial_charge &nbsp;</td><td align="CENTER"> pc.</td><td>
+<i> comparison-operator partial charge-value</i>
+<br> a real number
+<pre><b>PyMOL&gt;</b> select hicharges, pc. &gt; 1</pre>
+</td></tr>
+</tbody></table>
+</center>
+<p> Details of the atom and residue name formats can be found in the
+ official guide to PDB file formats,
+ http://www.rcsb.org/pdb/docs/format/pdbguide2.2/guide2.2_frame.html.</p>
+<h3><a name="7_1_5">Selection Algebra</a></h3>
+<p>Selections can be made more precise or inclusive by combining them
+ with logical operators, including the boolean<b> and, or</b> and<b> not</b>
+. The boolean<b> and</b> selects only those items that have both (or
+ all) of the named properties, and the boolean<b> or</b> selects items
+ that have either (or any) of them. Venn diagrams show that<b> and</b>
+ selects the areas of overlap, while<b> or</b> selects both areas.
+<br> <img src="PyMOL%20Users%20Manual_files/S0220venn.jpg" width="389" height="112">
+<br></p>
+<p><b>Operators:</b></p>
+<p>Selection operators and modifiers are listed below. The dummy
+ variables<i> s</i>1 and<i> s</i>2 stand for selection-expressions such
+ as "chain a" or "hydro."</p>
+<center>
+<table border="1">
+<tbody><tr><th width="100" align="CENTER">Operator</th><th>Short form</th><th>
+Effect</th></tr>
+<tr><td align="CENTER">not<i> s</i>1</td><td align="CENTER">!<i> s</i>1</td><td>
+Selects atoms that are not included in<i> s</i>1
+<br>
+<pre><b>PyMOL&gt;</b> select sidechains, ! bb</pre>
+</td></tr>
+<tr><td align="CENTER"><i> s</i>1 and<i> s</i>2</td><td align="CENTER"><i>
+ s</i>1 &amp;<i> s</i>2</td><td>Selects atoms included in both<i> s</i>1 and<i>
+ s</i>2
+<br>
+<pre><b>PyMOL&gt;</b> select far_bb, bb &amp;farfrm_ten</pre>
+</td></tr>
+<tr><td align="CENTER"><i> s</i>1 or<i> s</i>2</td><td align="CENTER"><i>
+ s</i>1 |<i> s</i>2</td><td>Selects atoms included in either<i> s</i>1
+ or<i> s</i>2
+<br>
+<pre><b>PyMOL&gt;</b> select all_prot, bb | sidechain</pre>
+</td></tr>
+<tr><td align="CENTER"><i> s</i>1 in<i> s</i>2</td><td align="CENTER"><i>
+ s</i>1 in<i> s</i>2</td><td>Selects atoms in<i> s</i>1 whose
+ identifiers
+<br> name, resi, resn, chain and segi all match atoms in<i> s</i>2
+<br>
+<pre><b>PyMOL&gt;</b> select same_atms, pept in prot</pre>
+</td></tr>
+<tr><td align="CENTER"><i> s</i>1 like<i> s</i>2</td><td align="CENTER"><i>
+ s</i>1 l.<i> s</i>2</td><td>Selects atoms in<i> s</i>1 whose
+ identifiers
+<br> name and resi match atoms in<i> s</i>2
+<br>
+<pre><b>PyMOL&gt;</b> select similar_atms, pept like prot</pre>
+</td></tr>
+<tr><td align="CENTER"><i> s</i>1 gap<i> X</i></td><td align="CENTER"><i>
+ s</i>1 gap<i> X</i></td><td>Selects all atoms whose van der Waals radii
+ are separated from the van der Waals radii of<i> s</i>1 by a minimum of<i>
+ X</i> Angstroms.
+<br>
+<pre><b>PyMOL&gt;</b> select farfrm_ten, resi 10 gap 5</pre>
+</td></tr>
+<tr><td align="CENTER"><i> s</i>1 around<i> X</i></td><td align="CENTER">
+<i> s</i>1 a.<i> X</i></td><td>Selects atoms with centers within<i> X</i>
+ Angstroms of the center of any atom in<i> s</i>1
+<br>
+<pre><b>PyMOL&gt;</b> select near_ten, resi 10 around 5</pre>
+</td></tr>
+<tr><td align="CENTER"><i> s</i>1 expand<i> X</i></td><td align="CENTER">
+<i> s</i>1 e.<i> X</i></td><td>Expands<i> s</i>1 by all atoms within<i>
+ X</i> Angstroms of the center of any atom in<i> s</i>1
+<br>
+<pre><b>PyMOL&gt;</b> select near_ten_x, near10 expand 3</pre>
+</td></tr>
+<tr><td align="CENTER">&nbsp;<i> s</i>1 within X of<i> s</i>2&nbsp;</td><td align="CENTER">
+&nbsp;<i> s</i>1 w. X of<i> s</i>2&nbsp;</td><td>Selects atoms in<i> s</i>1 that
+ are within X Angstroms of the<i> s</i>2
+<br>
+<pre><b>PyMOL&gt;</b> select bbnearten, bb w. 4 of resi 10</pre>
+</td></tr>
+<tr><td align="CENTER">byres<i> s</i>1</td><td align="CENTER">br.<i> s</i>
+1</td><td>Expands selection to complete residues
+<br>
+<pre><b>PyMOL&gt;</b> select complete_res, br. bbnear10</pre>
+</td></tr>
+<tr><td align="CENTER">byobject<i> s</i>1</td><td align="CENTER">bo.<i>
+ s</i>1</td><td>Expands selection to complete objects
+<br>
+<pre><b>PyMOL&gt;</b> select near_obj, bo. near_res</pre>
+</td></tr>
+<tr><td align="CENTER">neighbor<i> s</i>1</td><td align="CENTER">nbr.<i>
+ s</i>1</td><td>Selects atoms directly bonded to<i> s</i>1
+<br>
+<pre><b>PyMOL&gt;</b> select vicinos, neighbor resi 10</pre>
+</td></tr>
+</tbody></table>
+</center>
+<p>Logical selections can be combined. For example, you might select
+ atoms that are part of chain a, but not residue number 125:</p>
+<pre>      
+EXAMPLE
+
+   <b>PyMOL&gt;</b> select chain a and (not resi 125)      # selects atoms that are part of
+                                                 # chain a, but not 
+                                                 # residue number 125.
+
+   <b>PyMOL&gt;</b> select (name cb or name cg1 or name cg2) and chain A    # These two 
+                                                                  # selections are 
+   <b>PyMOL&gt;</b> select name cb+cg1+cg2 and chain A                      # equivalent.
+                                                                  # select c-beta's,
+                                                                  # c-gamma-1's and 
+                                                                  # c-gamma-2's 
+                                                                  # that are 
+                                                                  # in chain A.
+</pre>
+<p> Like the results of groups of arithmetic operations, the results of
+ groups of logical operations depend on which operation is performed
+ first. They have an order of precedence. To ensure that the operations
+ are performed in the order you have in mind, use parentheses:</p>
+<pre>   byres ((chain a or (chain b and (not resi 125))) around 5)
+</pre>
+<p> PyMOL will expand its logical selection out from the innermost
+ parentheses.</p>
+<h3><a name="7_1_6">Atom Selection Macros</a></h3>
+<p>Macros make it possible to represent a long atom selection phrase
+ such as</p>
+<pre>   
+<b>PyMOL&gt;</b> select pept and segi lig and chain b and resi 142 and name ca
+</pre>
+<p>in a more compact form:</p>
+<pre>   
+<b>PyMOL&gt;</b> select /pept/lig/b/142/ca
+</pre>
+<p> An atom selection macro uses slashes to define fields corresponding
+ to identifiers. The macro is used to select atoms using the boolean
+ "and," that is, the selected atoms must have all the matching
+ identifiers:</p>
+<pre>   
+   /<i>object-name</i>/<i>segi-identifier</i>/<i>chain-identifier</i>/<i>resi-identifier</i>/<i>name-identifier</i>
+</pre>
+<p> These identifiers form a hierarchy from the object-name at the top,
+ down to the name-identifier at the bottom. PyMOL has to be able to
+ recognize the macro as one word, so no spaces are allowed within it.</p>
+<p> Macros come in two flavors: those that begin with a slash and those
+ that don't. The presence or absence of a slash at the beginning of the
+ macro determines how it is interpreted. If the macro begins with a
+ slash, PyMOL expects to find the fields<i> starting</i> from the<i> top</i>
+ of the hierarchy: the first field to the right of the slash is
+ interpreted as an object-name; the second field as an identifier to
+ segi; the third as an identifier to chain, and so on. It may take any
+ of the following forms:</p>
+<pre>   
+   /<i>object-name</i>/<i>segi-identifier</i>/<i>chain-identifier</i>/<i>resi-identifier</i>/<i>name-identifier</i>
+   /<i>object-name</i>/<i>segi-identifier</i>/<i>chain-identifier</i>/<i>resi-identifier</i>
+   /<i>object-name</i>/<i>segi-identifier</i>/<i>chain-identifier</i>
+   /<i>object-name</i>/<i>segi-identifier</i>
+   /<i>object-name</i>
+
+EXAMPLES
+
+   <b>PyMOL&gt;</b> zoom /pept
+   <b>PyMOL&gt;</b> show spheres, /pept/lig/
+   <b>PyMOL&gt;</b> show cartoon, /pept/lig/a
+   <b>PyMOL&gt;</b> color pink, /pept/lig/a/10
+   <b>PyMOL&gt;</b> color yellow, /pept/lig/a/10/ca    
+</pre>
+<p> If the macro does not begin with a slash, it is interpreted
+ differently. In this case, PyMOL expects to find the fields<i> ending</i>
+ with the<i> bottom</i> of the hierarchy. Macros that don't start with a
+ slash may take the following forms:</p>
+<pre>                                             <i>resi-identifier</i>/<i>name-identifier</i>
+                            <i>chain-identifier</i>/<i>resi-identifier</i>/<i>name-identifier</i>
+            <i>segi-identifier</i>/<i>chain-identifier</i>/<i>resi-identifier</i>/<i>name-identifier</i>
+<i>object-name</i>/<i>segi-identifier</i>/<i>chain-identifier</i>/<i>resi-identifier</i>/<i>name-identifier</i>
+
+EXAMPLES
+
+   <b>PyMOL&gt;</b> zoom 10/cb
+   <b>PyMOL&gt;</b> show spheres, a/10-12/ca
+   <b>PyMOL&gt;</b> show cartoon, lig/b/6+8/c+o
+   <b>PyMOL&gt;</b> color pink, pept/enz/c/3/n
+</pre>
+<p> You can also omit fields between slashes. Omitted fields will be
+ interpreted as wildcards, as in the following forms:</p>
+<pre>   
+   <i>resi-identifier</i>/
+   <i>resi-identifier</i>/<i>name-identifier</i>
+   <i>chain-identifier</i>//
+   <i>object-name</i>//<i>chain-identifier</i>                
+   
+EXAMPLES
+
+   <b>PyMOL&gt;</b> zoom 142/                  # Residue 142 fills the viewer. 
+   
+   <b>PyMOL&gt;</b> show spheres, 156/ca       # The alpha carbon of residue 156
+                                     # is shown as a sphere     
+                                     
+   <b>PyMOL&gt;</b> show cartoon, a//          # Chain "A" is shown as a cartoon.  
+   
+   <b>PyMOL&gt;</b> color pink, pept//b        # Chain "B" in object "pept"
+                                     # is colored pink.
+</pre>
+<p> Selection macros must contain at least one forward slash in order to
+ distinguish them from other words in the selection language. Being
+ words, they must not contain any spaces. When using macros, it is also
+ important to understand that they are converted into long form before
+ being submitted to the selection engine. This can help in the
+ interpretation of error messages.</p>
+<h2><a name="7_2">Calling Python from within PyMOL</a></h2>
+<p>Single-line Python statements can be issued directly within PyMOL.
+ For example:</p>
+<pre><b>PyMOL&gt;</b> print 1 + 2
+3</pre>
+<p>Full access is available to standard Python library functions, and
+ you can assign results to symbols.</p>
+<pre><b>PyMOL&gt;</b>import time
+<b>PyMOL&gt;</b>now = time.time()
+<b>PyMOL&gt;</b>print now
+1052982734.94</pre>
+<p>Multi-line blocks of Python can be included within PyMOL command
+ scripts provided that a backslash ('\') is used for continuation on all
+ but the final line.</p>
+<pre><b>PyMOL&gt;</b> for a in range(1,6): \
+<b>PyMOL&gt;</b>    b = 6 - a \
+<b>PyMOL&gt;</b>    print a, b 
+1 5
+2 4
+3 3
+4 2
+5 1</pre>
+
+<h6><hr>NOTE: This manual is a PyMOL Incentive
+   Product with a One-Year Evaluation Period.  You, your school, or
+   your employer must purchase a PyMOL License &amp; Maintenance
+   Subscription to cover usage beyond the first year.  We trust you
+   to support the PyMOL project via the "honor" system, so please do
+   your part!  See <a href="http://pymol.sourceforge.net/newman/user/S0105copylic.html">Usage Terms</a> for
+   more information. <br>Copyright © 2004 <a href="http://www.delanoscientific.com/">DeLano Scientific
+   LLC</a>. All Rights Reserved.</h6>
+<hr>
+<a href="http://pymol.sourceforge.net/newman/user/toc.html">Contents</a>
+<a href="http://pymol.sourceforge.net/newman/user/S0210start_cmds.html">Previous</a>
+<a href="http://pymol.sourceforge.net/newman/user/S0260cartoons.html">Next</a>
+
+
+</body></html>
