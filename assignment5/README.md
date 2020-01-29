@@ -3,7 +3,7 @@
 Use trypsin/trypsin inhibitor complex, pdb code `2PC`.
 1. Find all residues in trypsin that have more than two close contacts to the inhibitor.
     * A "close contact" is any atom pair with distance lower than 3.5 Å.
-2. Print (phi, psi) angles for both proteins, using Polypeptide class and using your own code (use `calc_dihedral`)
+2. Print (phi, psi) angles for both proteins, using Polypeptide class and using your own code (use `calc_dihedral`).
     * Check if the (phi, psi) angles for the second amino acid match.
 3. Output Trypsin to a separate PDB file.
 4. Output all atoms within a sphere of 10 Å of the center of trypsin to a separate PDB file. Use the CA atoms to calculate the center.
