@@ -10,7 +10,7 @@ Download the PDB ﬁle and visualize the enzyme/inhibitor complex, showing the a
 
 ## Execution
 
-###
+### Image
 ![Image](st3451.png)
 
 ### Caption
