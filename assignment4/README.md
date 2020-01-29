@@ -2,29 +2,29 @@
 
 The effect of SNPs on RNA secondary structure can be predicted by comparing the structures of wild-type and mutant (with SNP) RNA. The structures being compared may be either optimal (MFE) structure or ensemble structure (obtained from partition function).
 While comparing the optimal structure between wild-type and mutant, the structures can be considered as two distinct strings and the diﬀerence at the pure string level be used to measure how divergent they are. This strategy is employed by the RNAmute program (Churkin and Barash, 2006):
-* Hamming distance - The number of position at which the corresponding symbols are diﬀerent.
-* base-pair distance - The total number of base pairs that are diﬀerent between two structures
+1. Hamming distance - The number of position at which the corresponding symbols are diﬀerent.
+2. base-pair distance - The total number of base pairs that are diﬀerent between two structures
 
 Compute both the Hamming and base pair distance of the following pairs of sequence:  
 
-__Pair 1__ 
+* __Pair 1__ 
 ```
 WT   GCGGGCCCCGC ((((...)))) 
 MUT  ACGGGCCCCGC .(((...))).
 ```
-__Pair 2__
+* __Pair 2__
 ```
 WT   CAAUCCCGGCUGCGUCCCAGUUGGAUUUAUCCAGCUGGUUCGUGCUGGUU .....(((((.(((..(((((((((....)))))))))..)))))))).. 
 MUT  CAAUCCCGGCUGCGUCCCAGUUGGAUUUAUCCAGCUGGUUCGUGGUGGUU ......(.((((((..(((((((((....)))))))))..)))))).)..
 ```
 
-__Pair 3__
+* __Pair 3__
 ```
 WT   AGCGGGGGAGACAUAUAUCACAGCCUGUCUCGUGCCCGACCCCGCUGGUU .....(((((.(((..(((((((((....)))))))))..)))))))).. 
 MUT  AGCGGGGGAGAGAUAUAUCACAGCCUGUCUCGUGCCCGACCCCGCUGGUU (((((((..((((((..........))))))........)))))))....
 ```
 
-__Pair 3__ 
+* __Pair 3__ 
 ```python
 WT   (((((..((((((((........(((((......)))))........)))))(((((...))))))))...)))))...((((((.((((((....)))))).).)))))..((((((...................))))))...((((((((((((.(((((((....))))))))))..((((((.....(((.((((((((.....))))))))....))).....))))))....))))))).))..
 MUT  (((((..((((((((........(((((......)))))........)))))(((((...))))))))...)))))...((((((.((((((....)))))).).)))))..((((((...................))))))...(((((((((..(((((((..((((((...........))))))....))))))).....((((((....))))))...((......))......))))))).))..
