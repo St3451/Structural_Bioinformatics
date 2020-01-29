@@ -24,15 +24,15 @@ def create_matrix(seq):
 ```
 
 ### Function that print the matrix
-```
+```python
 def print_matrix(matrix:list):
     """Take a nested list and print it as a matrix"""
     for row in matrix:
         print(row)
 ```
 
-### Score cell function
-```
+```python
+# Score cell function
 def score_cell(seq, score_matrix, i, j, minimum_loop_size = 2):
     """Take a DNA seq, a score_matrix, a min_loop_size and calculate the score of a cell (i,j) of the matrix"""
     score_list = []
