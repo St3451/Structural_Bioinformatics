@@ -12,7 +12,7 @@ The Nussinov algorithm for simple RNA folding by computation of the maximum numb
 ## Implementation
 
 ### Create a list(matrix) to store our scores
-```
+```python
 def create_matrix(seq):
     """Take a seq and return a matrix initialize with 0"""
     lst = []
