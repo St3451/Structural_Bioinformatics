@@ -56,7 +56,7 @@ for res1, res2 in close_residues:
 
 ## Exercise 2
 
-![Image](phi-psi_angle_IMAGE.png)
+![Image](phi-psi_angle_IMAGE.jpg)
 
 ```python
 # Print phi and psi angles for both proteins using Polypeptide class
