@@ -6,17 +6,17 @@ While comparing the optimal structure between wild-type and mutant, the structur
 * base-pair distance - The total number of base pairs that are diﬀerent between two structures
 
 Compute both the Hamming and base pair distance of the following pairs of sequence:
-1. 
+__1__ 
 ```
 WT   GCGGGCCCCGC ((((...)))) 
 MUT  ACGGGCCCCGC .(((...))).
 ```
-2. 
+__2__
 ```
 WT   CAAUCCCGGCUGCGUCCCAGUUGGAUUUAUCCAGCUGGUUCGUGCUGGUU .....(((((.(((..(((((((((....)))))))))..)))))))).. 
 MUT  CAAUCCCGGCUGCGUCCCAGUUGGAUUUAUCCAGCUGGUUCGUGGUGGUU ......(.((((((..(((((((((....)))))))))..)))))).)..
 ```
-3. 
+__3__ 
 ```python
 WT   (((((..((((((((........(((((......)))))........)))))(((((...))))))))...)))))...((((((.((((((....)))))).).)))))..((((((...................))))))...((((((((((((.(((((((....))))))))))..((((((.....(((.((((((((.....))))))))....))).....))))))....))))))).))..
 MUT  (((((..((((((((........(((((......)))))........)))))(((((...))))))))...)))))...((((((.((((((....)))))).).)))))..((((((...................))))))...(((((((((..(((((((..((((((...........))))))....))))))).....((((((....))))))...((......))......))))))).))..
