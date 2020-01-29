@@ -2,7 +2,7 @@
 
 The Nussinov algorithm for simple RNA folding by computation of the maximum number of base pairs employ a dynamic progrmaming algorithm. Here, this algorithm will be implemented.
 
-## Backgroun
+## Background
 
 1. Before imlementing the Nussinov algorithm work a scheme on how you iterate your way through the matrix for the version without bifurcation.
 2. Now, implement a simple version computing the maximum number of base pairs still ignoring the bifurcation term.
@@ -11,7 +11,7 @@ The Nussinov algorithm for simple RNA folding by computation of the maximum numb
 
 ## Implementation
 
-This is a non-weighted implementation of the Nussinov algorithm, the final version(weighted score function that can consider specific constraint) can be found in the `final_exam folder`.
+This is a non-weighted implementation of the Nussinov algorithm, the final version (weighted score function that can consider specific constraint) can be found in the `final_exam folder`.
 
 ```python
 #### My implementation of the Nussinov algorithm is based on Giulia Corsi (PhD fellow Animal Genetics, 
@@ -19,7 +19,7 @@ This is a non-weighted implementation of the Nussinov algorithm, the final versi
 #### in week 3 lecture exercises of Structural Bioinformatics. 
 ```
 
-### Create a list of list (matrix) to store our scores
+##### Create a list of list (matrix) to store our scores
 ```python
 def create_matrix(seq):
     """
@@ -34,7 +34,7 @@ def create_matrix(seq):
     return lst
 ```
 
-### Function that print a matrix
+##### Function that print a matrix
 ```python
 def print_matrix(matrix:list):
     """
@@ -47,7 +47,7 @@ def print_matrix(matrix:list):
             print(row)
 ```
 
-### Score cell function
+##### Score cell function
 ```python
 def score_cell(seq, score_matrix, i, j, minimum_loop_size = 2):
     """
@@ -81,7 +81,7 @@ def score_cell(seq, score_matrix, i, j, minimum_loop_size = 2):
     print(score_list)      
 ```
 
-### Iterate through the diagonals              
+##### Iterate through the diagonals              
 ```python
 def dinamic_programming_folding(seq, matrix_lst, min_loop_size):
     """
@@ -94,7 +94,7 @@ def dinamic_programming_folding(seq, matrix_lst, min_loop_size):
             score_cell(seq, matrix_lst, i, j, min_loop_size)                                 
 ```
 
-### Create a list for the dot bracket notation sequence
+##### Create a list for the dot bracket notation sequence
 ```python
 def create_lst_db(seq):
     """
@@ -107,7 +107,7 @@ def create_lst_db(seq):
     return lst_db_ini
 ```
 
-### Backtracking
+##### Backtracking
 ```python
 def db_build(row, col, dot_brackets_lst, min_loop_size, seq, score_matrix):   # the order of how we decide the conditions will determine which structure will be generated (same base pairs)
     """
@@ -146,7 +146,7 @@ def db_build(row, col, dot_brackets_lst, min_loop_size, seq, score_matrix):   # 
             break
 ```
 
-### Execution
+##### Execution
 ```python
 # Set the sequence
 sequence = "AAACUUUCCCAGGG"  
