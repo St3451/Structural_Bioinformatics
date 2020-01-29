@@ -34,7 +34,7 @@ def create_matrix(seq):
     return lst
 ```
 
-# __Function that print a matrix__
+* __Function that print a matrix__
 ```python
 def print_matrix(matrix:list):
     """
