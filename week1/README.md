@@ -11,7 +11,7 @@ Download the PDB ﬁle and visualize the enzyme/inhibitor complex, showing the a
 ## Execution
 
 ###
-![Image](st3451)
+![Image](/st3451)
 
 ### Caption
 
