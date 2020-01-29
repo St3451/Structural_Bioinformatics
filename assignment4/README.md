@@ -23,6 +23,7 @@ __Pair 3__
 WT   AGCGGGGGAGACAUAUAUCACAGCCUGUCUCGUGCCCGACCCCGCUGGUU .....(((((.(((..(((((((((....)))))))))..)))))))).. 
 MUT  AGCGGGGGAGA*G*AUAUAUCACAGCCUGUCUCGUGCCCGACCCCGCUGGUU (((((((..((((((..........))))))........)))))))....
 ```
+![#f03c15](https://placehold.it/15/f03c15/000000?text=ASDASDSAD) `#f03c15`
 
 __Pair 3__ 
 ```python
