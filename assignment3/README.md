@@ -19,7 +19,7 @@ This is a non-weighted implementation of the Nussinov algorithm, the final versi
 #### in week 3 lecture exercises of Structural Bioinformatics. 
 ```
 
-##### Create a list of list (matrix) to store our scores
+##### * Create a list of list (matrix) to store our scores
 ```python
 def create_matrix(seq):
     """
