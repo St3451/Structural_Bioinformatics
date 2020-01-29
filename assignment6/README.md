@@ -1,21 +1,21 @@
 # Assignment 6 - Optimal RMSD algorithm 
 
-## a) Introduction
+## A) Introduction
 
 The task of the exercise is to implement an algorithm to measure the difference between two protein structures based on the root mean square deviation (RMSD) score. The output of our algorithm should be the minimal RMSD between the two structures after superposition. Here we assume that the atoms of the two structures used are already paired, otherwise it would have been a more complicated problem to solve and for each alpha carbon in one protein we should have found its pair in the other one.  
 
-The exercise is divided in two parts. In the first part, we use two points set (two 3 by 5 matrices) that represent the atomic coordinates of two polypeptides of five amino acids each, while in the second part we used two models of the same protein structure. This structure is determined by nuclear magnetic resonance (NMR) and the structures determined by this experimental method often consist of several models. In particular we calculate the RMSD between the carbon alpha of chain A of model 0 and model 1 of 1lcd, which is the PDB structure of the lac repressor headpiece complex.
+The exercise is divided in two parts. In the first part, we use two points set (two 3 by 5 matrices) that represent the atomic coordinates of two polypeptides of five amino acids each, while in the second part we used two models of the same protein structure. This structure is determined by nuclear magnetic resonance (NMR) and the structures determined by this experimental method often consist of several models. In particular we calculate the RMSD between the carbon alpha of chain A of model 0 and model 1 of `1lcd`, which is the PDB structure of the lac repressor headpiece complex.
 
 ### Implementation
 
-__Part 1__
+* __Part 1__  
 For the first part of the exercise I create a function that take two sets of vectors, representing the coordinates of the alpha carbons of the residues of two polypeptide chains. The function superimpose the two structures by applying a rotation matrix U that minimize the RMSD and return a tuple of three elements: the RMSD calculated by the closed formula, the RMSD calculated by rotating the coordinates and the rotation matrix U.  
 
 In order to rotate a on top of b (in my code x and y, respectively), I first need to center the two sets of vectors in the center of their three dimensional space axis, which is equivalent to center them to their center of mass. Then I need to find the U rotation matrix to apply to b that result in the minimum RMSD, that can be done by singular value decomposition (SVD) of R (correlation matrix of a and b). Sometimes the minimum RMSD is given by an U that is a roto-reflection matrix, in that case I must change it into a rotation matrix since applying a reflection transformation to a protein will result in a different one.  
 
 In order to calculate the RMSD by the first method I don’t use directly the rotation matrix U, the closed formula uses the average of the square root of the sum of the length of the two sets of vectors (E0) plus the sum of the s diagonal matrix components obtained from SVD of R (L(U)). For the second method I apply the U rotation matrix to b, than I calculate the square root of the average of the sum of the squared difference between the vectors length of a and rotated b.
 
-__Part 2__
+* __Part 2__  
 I started by loading the PDB structure and selecting the models (0 and 1) and the chain A, than I create a function for extracting the alpha carbons from sane residues (excluding water molecules and residues with missing alpha carbon). The function take a chain as input, select only sane 
 residues and return a 3 by n matrix (where n is equal to the number of residues in the chain) corresponding to the alpha carbons coordinates in the space.
 After this initial step I used the function implemented in the first part of the exercise to superimpose the two structures and calculate the minimum RMSD with the two different methods.  
@@ -26,12 +26,13 @@ First I show the 1lcd structure downloaded from PDB, the pictures are generated 
 The green polypeptide is the chain A, the red one is chain B and the blue one is chain C.  
 
 In the next picture I show the chain A of the first model (green) superposed to the chain A of the second model (blue).
-![Image](1lcd_aligned_pymol)
+![Image](1lcd_aligned_pymol.png)
 
-When performing the superimposition of two structures, pymol also reports the calculated RMSD: RMSD = 0.751 (410 to 410 atoms).  
-The RMSD calculated from pymol is slightly different from my result, but I calculate the RMSD from only 51 alpha carbons, while pymol use 410 atoms from a total of 554 atoms contained in the structure.
+When performing the superimposition of two structures, pymol also reports the calculated RMSD:  
+RMSD = 0.751 (410 to 410 atoms).  
+The RMSD calculated from pymol is slightly different from my result, but I calculate the RMSD from only 51 alpha carbons, while PyMOL use 410 atoms from a total of 554 atoms contained in the structure.
 
-## b) Documented code
+## B) Documented code
 
 * __Part 1 - Work with toy proteins coordinates__
 
@@ -83,12 +84,12 @@ def calc_RMSD(chain_a, chain_b):
 
     # Check for reflection  
     z = diag([1,1,-1])                
-    if round(det(U)) == -1:                       # here I also should change the third value of the s vector
-        U = wt.T * z * v.T
+    if round(det(U)) == -1:                               # here I should also change the sign of the third element of the s vector
+        U = wt.T * z * v.T                                    
         print(round(det(U)) == 1, "Roto-reflection fixed")
 
     # Use the closed formula to calculate the RMSD (purely using linear algebra)
-    len_x = norm(x_centered)                                   # with x.A we can use x as array (element wise moltiplication) 
+    len_x = norm(x_centered)                              # with x.A we can use x as array (element wise moltiplication) 
     len_y = norm(y_centered)
     E_0 = len_x**2 + len_y**2
     L_U = sum(s)
