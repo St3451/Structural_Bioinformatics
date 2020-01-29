@@ -21,8 +21,8 @@ def calculate_bp_distance(seq1_db, seq2_db):
         if seq1_db[index] == "(":
             lst_opening_1.append(index)               
         # if I have a closed ")", remove (pop) the last element of lst_opening and create a bp_coordinate with:
-        elif seq1_db[index] == ")":                   # - element removed from lst_opening (position opening bracket)
-            elem = lst_opening_1.pop()                # - current position (position closing bracket)                               
+        elif seq1_db[index] == ")":                            # - element removed from lst_opening (position opening bracket)
+            elem = lst_opening_1.pop()                         # - current position (position closing bracket)                               
             pair = (elem, index)
             lst_couples_1.append(pair)
     # Repeat for the second dot bracket sequence
