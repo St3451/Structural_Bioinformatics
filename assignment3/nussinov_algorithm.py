@@ -34,8 +34,6 @@ def score_cell(seq, score_matrix, i, j, minimum_loop_size = 2):
     """    
     score_list = []
     bp = 0
-    print("\nCell: (" + str(i) + ", " + str(j) + ")")
-    print("BP: " + seq[i] + seq[j])
     # Check if there is a base pair in the constraint sequence, in that case force to have base pair    
     if (seq[i] == "A" and seq[j] == "U") or (seq[i] == "U" and seq[j] == "A") or (seq[i] == "G" and seq[j] == "C") or (seq[i] == "C" and seq[j] == "G") or (seq[i] == "G" and seq[j] == "U") or (seq[i] == "U" and seq[j] == "G"):
         bp += 1
@@ -53,10 +51,7 @@ def score_cell(seq, score_matrix, i, j, minimum_loop_size = 2):
     # Append to the score list the max of the bifurcation scores
     score_list.append(max(k_scores))
     # Score the cell with the max of the four scores (diagonal + basepair score, left, bottom and bifurcation)
-    score_matrix[i][j] = max(score_list)              
-    print("MAX: " + str(max(score_list)))  
-    print(k_scores)
-    print(score_list)      
+    score_matrix[i][j] = max(score_list)                  
 
 # Iterate through the diagonals              
 def dinamic_programming_folding(seq, matrix_lst, min_loop_size):
@@ -91,30 +86,25 @@ def db_build(row, col, dot_brackets_lst, min_loop_size, seq, score_matrix):   # 
     while row < col + min_loop_size and score_matrix[row][col]!=0:           
         # Check if the score of the cell is obtained from the diagonal (match)                                                                    
         if score_matrix[row][col] == score_matrix[row+1][col-1] + 1 and (seq[row] == "A" and seq[col] == "U") or (seq[row] == "U" and seq[col] == "A") or (seq[row] == "G" and seq[col] == "C") or (seq[row] == "C" and seq[col] == "G") or (seq[row] == "G" and seq[col] == "U") or (seq[row] == "U" and seq[col] == "G"):  
-            print("Cell: (" + str(row) + ", " + str(col) + "), generated from diagonal (****MATCH****)")
             dot_brackets_lst[col] = ")"
             dot_brackets_lst[row] = "("
             col -= 1
             row += 1
         # Check if the score of the cell is obtained from the bottom
         elif score_matrix[row][col] == score_matrix[row+1][col]:             
-            print("Cell: (" + str(row) + ", " + str(col) + "), generated from bottom")
             row += 1
         # Check if the score of the cell is obtained from the left
         elif score_matrix[row][col] == score_matrix[row][col-1]:              
-            print("Cell: (" + str(row) + ", " + str(col) + "), generated from left")
             col -= 1     
         # Check for possible bifurcations                                                    
         else:
-            print(">>>>> Try bifurcation, enter else state <<<<<")
             for k in range(row, col - min_loop_size):
                 if score_matrix[row][col] == score_matrix[row][k] + score_matrix[k+1][col]:
-                    print("Cell: (" + str(row) + ", " + str(col) + "), generated from Cells: (" + str(row) + ", " + str(k) + ") + (" + str(k + 1) + ", " + str(col) + ") (****BIFURCATION****)")
                     db_build(row, k, dot_brackets_lst, min_loop_size, seq, score_matrix)     # recursion (i,k)
                     db_build(k+1, col, dot_brackets_lst, min_loop_size, seq, score_matrix)   #           (k+1,j)
                     break
             else:
-                print("\n ERRORE NOT MATCH WITH ANYTHING in Cell: (" + str(row) + ", " + str(col) + ")")
+                print("\n ERRORE, not match with anything in cell: (" + str(row) + ", " + str(col) + ")")
             break
 
 # Set the sequence
