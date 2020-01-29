@@ -11,7 +11,7 @@ The Nussinov algorithm for simple RNA folding by computation of the maximum numb
 
 ## Implementation
 
-This is a non-weighted implementation of the Nussinov algorithm, the final version (weighted score function that can consider specific constraint) can be found in the `final_exam folder`.
+This is a non-weighted implementation of the Nussinov algorithm, the final version (weighted score function that can consider specific constraint) can be found in the `final_exam` folder.
 
 ```python
 #### My implementation of the Nussinov algorithm is based on Giulia Corsi (PhD fellow Animal Genetics, 
