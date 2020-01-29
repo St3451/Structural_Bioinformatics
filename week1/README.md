@@ -8,9 +8,12 @@ Download the PDB ﬁle and visualize the enzyme/inhibitor complex, showing the a
 * the pymol script 
 
 
-# Execution
+## Execution
 
-## Caption
+###
+
+
+### Caption
 
 The image represent the trypsin serine protease and its inhibitor, they are contained in the 2PTC file from PDB.  
 *	Pale yellow = trypsin enzyme  
@@ -19,7 +22,7 @@ The image represent the trypsin serine protease and its inhibitor, they are cont
 *	Blue = inhibitor residues 4 A° around the enzyme active site  
     *	Dark blue = atoms of the residues 4 A° around the active site  
     *	Light blue = atoms of the residues that are not 4 A° around the active site  					   
-## Pymol script
+### Pymol script
 
 delete all; fetch 2PTC  
 set stick_ball; set stick_ball_ratio, 2  
