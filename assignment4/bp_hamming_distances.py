@@ -1,40 +1,6 @@
-# Assignment 3 - Measures to detect the eﬀect of SNPs on RNA secondary structure
+#Ex 1 and 2
 
-The effect of SNPs on RNA secondary structure can be predicted by comparing the structures of wild-type and mutant (with SNP) RNA. The structures being compared may be either optimal (MFE) structure or ensemble structure (obtained from partition function).
-While comparing the optimal structure between wild-type and mutant, the structures can be considered as two distinct strings and the diﬀerence at the pure string level be used to measure how divergent they are. This strategy is employed by the RNAmute program (Churkin and Barash, 2006):
-* Hamming distance - The number of position at which the corresponding symbols are diﬀerent.
-* base-pair distance - The total number of base pairs that are diﬀerent between two structures
-
-Compute both the Hamming and base pair distance of the following pairs of sequence:  
-
-__Pair 1__ 
-```
-WT   GCGGGCCCCGC ((((...)))) 
-MUT  ACGGGCCCCGC .(((...))).
-```
-__Pair 2__
-```
-WT   CAAUCCCGGCUGCGUCCCAGUUGGAUUUAUCCAGCUGGUUCGUGCUGGUU .....(((((.(((..(((((((((....)))))))))..)))))))).. 
-MUT  CAAUCCCGGCUGCGUCCCAGUUGGAUUUAUCCAGCUGGUUCGUGGUGGUU ......(.((((((..(((((((((....)))))))))..)))))).)..
-```
-
-__Pair 3__
-```
-WT   AGCGGGGGAGACAUAUAUCACAGCCUGUCUCGUGCCCGACCCCGCUGGUU .....(((((.(((..(((((((((....)))))))))..)))))))).. 
-MUT  AGCGGGGGAGAGAUAUAUCACAGCCUGUCUCGUGCCCGACCCCGCUGGUU (((((((..((((((..........))))))........)))))))....
-```
-
-__Pair 3__ 
-```python
-WT   (((((..((((((((........(((((......)))))........)))))(((((...))))))))...)))))...((((((.((((((....)))))).).)))))..((((((...................))))))...((((((((((((.(((((((....))))))))))..((((((.....(((.((((((((.....))))))))....))).....))))))....))))))).))..
-MUT  (((((..((((((((........(((((......)))))........)))))(((((...))))))))...)))))...((((((.((((((....)))))).).)))))..((((((...................))))))...(((((((((..(((((((..((((((...........))))))....))))))).....((((((....))))))...((......))......))))))).))..
-
-```
-
-## Implementation
-
-##### Hamming distance
-```python
+# Hamming distance
 def calculate_hamming_distance(seq1_db, seq2_db):
     """Take two dot bracket sequences and return their hamming distance"""
     hamming_difference = 0
@@ -42,10 +8,10 @@ def calculate_hamming_distance(seq1_db, seq2_db):
         if seq1_db[index] != seq2_db[index]:
             hamming_difference += 1
     return hamming_difference
-```
 
-##### Base-pair distance
-```python
+
+# Base-pair distance
+
 def calculate_bp_distance(seq1_db, seq2_db):
     """Take two dot bracket sequences and return their base pairs distance"""
     lst_opening_1 = []                               
@@ -77,32 +43,36 @@ def calculate_bp_distance(seq1_db, seq2_db):
     diff = len(set1.difference(set2)) + len(set2.difference(set1))    # set1.difference(set2) output a set with elements present in
                                                                       # set1 but not in set2
     return diff
-```
 
-##### Assign the pairs
-```python
+## Base pair 1
 wt1 = "((((...))))"
 mut1= ".(((...)))."
+
+## Base pair 2
 wt2 = ".....(((((.(((..(((((((((....)))))))))..)))))))).."
 mut2= "......(.((((((..(((((((((....)))))))))..)))))).).."
+
+## Base pair 3
 wt3 = "(((((((((((((............))))))........)))))))...."
 mut3= "(((((((..((((((..........))))))........)))))))...."
-wt4 = "(((((..((((((((........(((((......)))))........)))))(((((...))))))))...)))))...((((((.((((((....)))))).).)))))..((((((...................))))))...((((((((((((.(((((((....))))))))))..((((((.....(((.((((((((.....))))))))....))).....))))))....))))))).)).."
-mut5= "(((((..((((((((........(((((......)))))........)))))(((((...))))))))...)))))...((((((.((((((....)))))).).)))))..((((((...................))))))...(((((((((..(((((((..((((((...........))))))....))))))).....((((((....))))))...((......))......))))))).)).."
-```
 
-##### Output
-```python
+## Base pair 4
+wt4 = "(((((..((((((((........(((((......)))))........)))))(((((...))))))))...)))))...((((((.((((((....)))))).).)))))..((((((...................))))))...((((((((((((.(((((((....))))))))))..((((((.....(((.((((((((.....))))))))....))).....))))))....))))))).)).."
+mut4= "(((((..((((((((........(((((......)))))........)))))(((((...))))))))...)))))...((((((.((((((....)))))).).)))))..((((((...................))))))...(((((((((..(((((((..((((((...........))))))....))))))).....((((((....))))))...((......))......))))))).)).."
+
+## Execute 
 print("\nPair 1")
 print("Hamming difference: " + str(calculate_hamming_distance(wt1, mut1)))
 print("BP distance: " + str(calculate_bp_distance(wt1, mut1)))
+
 print("\nPair 2")
 print("Hamming difference: " + str(calculate_hamming_distance(wt2, mut2)))
 print("BP distance: " + str(calculate_bp_distance(wt2, mut2)))
+
 print("\nPair 3")
 print("Hamming difference: " + str(calculate_hamming_distance(wt3, mut3)))
 print("BP distance: " + str(calculate_bp_distance(wt3, mut3)))
+
 print("\nPair 4")
 print("Hamming difference: " + str(calculate_hamming_distance(wt4, mut4)))
 print("BP distance: " + str(calculate_bp_distance(wt4, mut4)))
-```
