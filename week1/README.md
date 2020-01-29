@@ -11,7 +11,7 @@ Download the PDB ﬁle and visualize the enzyme/inhibitor complex, showing the a
 ## Execution
 
 ###
-![](C:\Users\stefa\Desktop\Bioinformatics\----- KU Blocks -----\Anno 1\Block 2\Structural Bioinformatics\Week 1\exercises\st3451)
+![Image](st3451)
 
 ### Caption
 
