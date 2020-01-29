@@ -19,7 +19,7 @@ This is a non-weighted implementation of the Nussinov algorithm, the final versi
 #### in week 3 lecture exercises of Structural Bioinformatics. 
 ```
 
-##### * Create a list of list (matrix) to store our scores
+* __Create a list of list (matrix) to store our scores__
 ```python
 def create_matrix(seq):
     """
@@ -34,7 +34,7 @@ def create_matrix(seq):
     return lst
 ```
 
-##### Function that print a matrix
+# __Function that print a matrix__
 ```python
 def print_matrix(matrix:list):
     """
