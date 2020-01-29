@@ -21,7 +21,7 @@ MUT  CAAUCCCGGCUGCGUCCCAGUUGGAUUUAUCCAGCUGGUUCGUGGUGGUU ......(.((((((..((((((((
 __Pair 3__
 ```
 WT   AGCGGGGGAGACAUAUAUCACAGCCUGUCUCGUGCCCGACCCCGCUGGUU .....(((((.(((..(((((((((....)))))))))..)))))))).. 
-MUT  AGCGGGGGAGA__G__AUAUAUCACAGCCUGUCUCGUGCCCGACCCCGCUGGUU (((((((..((((((..........))))))........)))))))....
+MUT  AGCGGGGGAGA<b>G</b>AUAUAUCACAGCCUGUCUCGUGCCCGACCCCGCUGGUU (((((((..((((((..........))))))........)))))))....
 ```
 
 __Pair 3__ 
