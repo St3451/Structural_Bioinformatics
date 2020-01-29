@@ -11,12 +11,12 @@ The Nussinov algorithm for simple RNA folding by computation of the maximum numb
 
 ## Implementation
 
-This is a non-weighted implementation of the Nussinov algorithm, the weighted version that can also consider specific constraint can be found in the `final_exam folder`.
+This is a non-weighted implementation of the Nussinov algorithm, the final version(weighted score function that can consider specific constraint) can be found in the `final_exam folder`.
 
 ```python
-# My implementation of the Nussinov algorithm is based on Giulia Corsi (PhD fellow Animal Genetics, 
-# Bioinformatics and Breeding; University of Copenhagen) implementation and on line guides I received
-# in week 3 lecture exercises of Structural Bioinformatics. 
+#### My implementation of the Nussinov algorithm is based on Giulia Corsi (PhD fellow Animal Genetics, 
+#### Bioinformatics and Breeding; University of Copenhagen) implementation and on line guides I received
+#### in week 3 lecture exercises of Structural Bioinformatics. 
 ```
 
 ### Create a list of list (matrix) to store our scores
