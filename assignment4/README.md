@@ -10,9 +10,10 @@ While comparing the optimal structure between wild-type and mutant, the structur
 Compute both the Hamming and base pair distance of the following pairs of sequence:  
 
 1. __Pair 1__ 
-WT   GCGGGCCCCGC ((((...))))  
+```
+WT   GCGGGCCCCGC ((((...)))) 
 MUT  ACGGGCCCCGC .(((...))).
-                
+```
 2. __Pair 2__
 ```
 WT   CAAUCCCGGCUGCGUCCCAGUUGGAUUUAUCCAGCUGGUUCGUGCUGGUU .....(((((.(((..(((((((((....)))))))))..)))))))).. 
