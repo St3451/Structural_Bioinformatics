@@ -33,7 +33,7 @@ MUT  (((((..((((((((........(((((......)))))........)))))(((((...))))))))...))))
 
 ## Implementation
 
-##### Hamming distance
+* __Hamming distance__
 ```python
 def calculate_hamming_distance(seq1_db, seq2_db):
     """Take two dot bracket sequences and return their hamming distance"""
@@ -44,7 +44,7 @@ def calculate_hamming_distance(seq1_db, seq2_db):
     return hamming_difference
 ```
 
-##### Base-pair distance
+* __Base-pair distance__
 ```python
 def calculate_bp_distance(seq1_db, seq2_db):
     """Take two dot bracket sequences and return their base pairs distance"""
@@ -79,7 +79,7 @@ def calculate_bp_distance(seq1_db, seq2_db):
     return diff
 ```
 
-##### Assign the pairs
+* __Assign the pairs__
 ```python
 wt1 = "((((...))))"
 mut1= ".(((...)))."
@@ -91,7 +91,7 @@ wt4 = "(((((..((((((((........(((((......)))))........)))))(((((...))))))))...))
 mut5= "(((((..((((((((........(((((......)))))........)))))(((((...))))))))...)))))...((((((.((((((....)))))).).)))))..((((((...................))))))...(((((((((..(((((((..((((((...........))))))....))))))).....((((((....))))))...((......))......))))))).)).."
 ```
 
-##### Output
+* __Output__
 ```python
 print("\nPair 1")
 print("Hamming difference: " + str(calculate_hamming_distance(wt1, mut1)))
