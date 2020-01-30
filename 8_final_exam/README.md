@@ -131,7 +131,7 @@ Arginine, Lysine, Glutamate, Glutamine and Methionine are the amino acids that p
 ![Image4.3](pictures/large_aa2.png)
 
 ## References
-[1] S.C. Lovell, I.W. Davis, W.B. Arendall III, P.I.W. de Bakker, J.M. Word, M.G. Prisant, J.S. Richardson, and D.C. Richardson     (2003) "Structure Validation by $Cα$ Geometry: $φ,ψ$ and $Cβ$ Deviation" Proteins: Structure, Function and Genetics 50:437-450.
+[1] S.C. Lovell, I.W. Davis, W.B. Arendall III, P.I.W. de Bakker, J.M. Word, M.G. Prisant, J.S. Richardson, and D.C. Richardson     (2003) "Structure Validation by Cα Geometry: φ,ψ and Cβ Deviation" Proteins: Structure, Function and Genetics 50:437-450.
 
 [2] H.M. Berman, K. Henrick, H. Nakamura (2003) Announcing the worldwide Protein Data Bank Nature Structural Biology 10 (12): 980.
 
@@ -256,7 +256,7 @@ The base pair distance between the two dot-bracket strings I obtained is 29.
 ### Sketch of the two structures
 The structure obtained by the constraint structure prediction (on the left) resemble a tRNA structure but, especially in the area close to the central inner loop, it has an excessive amount of base pairs. The structure predicted with unconstraint prediction (on the right) doesn't resemble any known structure. The sketch of the structures is obtained with [forna](http://rna.tbi.univie.ac.at/forna/), it is a RNA secondary structure visualization tool provided by the University of Vienna [8].  
 
-![image.png](/pictures/RNA_forge.png)
+![image.png](pictures/RNA_forge.png)
 
 #### Annotation.
 In order to annotate the sequence I performed a search in the Rfam database, which is a collection of RNA families, each represented by multiple sequence alignments and consensus secondary structures [5]. As expected the result of my search is that the sequence is a tRNA. The structure prediction compatible with the annotation is the constraint one.
