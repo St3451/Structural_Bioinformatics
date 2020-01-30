@@ -5,9 +5,7 @@ from Bio.PDB.PDBParser import PDBParser
 import matplotlib.pyplot as plt
 import numpy as np
 
-# Center (average of the cooridnates of all CA of the protein)
-# We expect that the mean of PHE will be shorter than ASP because it is an hydrophilic aa
-
+# Calculate the enter of mass (average of the cooridnates of all CA of the protein)
 def calc_center(structure):
     """
     Returns center of structure s as vector.
@@ -62,7 +60,7 @@ def save_histogram(rlist, aa):
     plt.ylim(0, 0.08)
     plt.grid(True)
     # Save
-    plt.savefig("/home/lpp/BIOINFORMATICS/sb2019/week7/dist_hist_"+aa+".png")
+    plt.savefig("dist_hist_"+aa+".png")
     # Clear canvas for next plot
     plt.clf()
 
@@ -78,7 +76,7 @@ if __name__=="__main__":
 
     p = PDBParser(QUIET = True) # Quiet ignore warnings 
     s_protein_list = []
-    directory = "/home/lpp/BIOINFORMATICS/sb2019/week7/top500H"
+    directory = "top500H"
     for filename in os.listdir(directory): # Add to a dictionary the structure of each protein file and the name of the protein as key
         print("parsing ", filename, "...")
         try:

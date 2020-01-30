@@ -87,7 +87,7 @@ def save_histogram(rlist, aa):
     plt.ylim(0, 0.08)
     plt.grid(True)
     # Save
-    plt.savefig("/home/lpp/BIOINFORMATICS/sb2019/week7/dist_hist_"+aa+".png")
+    plt.savefig("dist_hist_"+aa+".png")
     # Clear canvas for next plot
     plt.clf()
 
@@ -103,7 +103,7 @@ if __name__=="__main__":
 
     p = PDBParser(QUIET = True) # Quiet ignore warnings 
     s_protein_list = []
-    directory = "/home/lpp/BIOINFORMATICS/sb2019/week7/top500H"
+    directory = "top500H"
     for filename in os.listdir(directory): 
         print("parsing ", filename, "...")
         try:
