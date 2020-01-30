@@ -1,5 +1,5 @@
 # Final exam
-The exam is composed of three parts: protein theory, protein practice and rna. The theory part (which can be found in `protein_theory.pdf`) is about an interesting comparison between two revolutionary protein structure prediction methods, DeepMind's AlphaFold and AlQuaraishi's end-to-end prediction. The code of the practical exercises can be found in `protein.py` and `rna.py`.
+The exam is composed of three parts: protein theory, protein practice and RNA. The theory part (which can be found in `protein_theory.pdf`) is about an interesting comparison between two revolutionary protein structure prediction methods, DeepMind's AlphaFold and AlQuaraishi's end-to-end prediction. The code of the practical exercises can be found in `protein.py` and `rna.py`.
 
 ------------------------------------------------------------------------------------------------------------------------------------------
 
