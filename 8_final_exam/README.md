@@ -155,6 +155,8 @@ The Nussinov algorithm is historically the first attempts at RNA secondary struc
 ![](pictures/nussi.png)
 
 where  𝑠(𝑖,𝑗)  can be just  1  in case of base pair or can have different scores (3,2,1) depending on the specific bases that form a pair in that cell. After the matrix is filled, the optimal RNA secondary structure is obtained by backtracking from the top right cell.
-The Nussinov algorithm is a really simplified version of RNA folding and it has several limitations. It has a computational complexity 𝑂(𝑁^3) and cannot consider pseudoknots, otherwise the computational complexity could reach 𝑂(𝑁^6). An other problem is the ambiguity because often the same structure can be procuded in several ways and the structures with the maximum number of base pairs are often not unique. 
-Δ𝐺𝑙𝑜𝑜𝑝(𝑛)=Δ𝐺size (𝑛)+Δ𝐺sequence +Δ𝐺special  
-, in this way this method provide a much better prediction and an unambiguous solution to the folding problem using free energy minimization [3].
+The Nussinov algorithm is a really simplified version of RNA folding and it has several limitations. It has a computational complexity 𝑂(𝑁^3) and cannot consider pseudoknots, otherwise the computational complexity could reach 𝑂(𝑁^6). An other problem is the ambiguity because often the same structure can be procuded in several ways and the structures with the maximum number of base pairs are often not unique.  
+
+Δ𝐺𝑙𝑜𝑜𝑝(𝑛)=Δ𝐺size (𝑛)+Δ𝐺sequence +Δ𝐺special,  
+
+in this way this method provide a much better prediction and an unambiguous solution to the folding problem using free energy minimization [3].
