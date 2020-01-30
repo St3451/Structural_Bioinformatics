@@ -79,8 +79,34 @@ Then I obtain the centered coordinates of their side chains (method described in
 ```
 #### Optimal RMSD superposition
 The implementation of the RMSD algorithm (and most of the rest of the code) is based on weekly exercises solutions provided by our Structural Bioinformatics professor Thomas Hamelryck. 
-In order to measure the structural similarity between side chain pairs, we used the root-mean-square deviation (RMSD) of atomic positions which is simply the square root of the distance between all atoms divided by their number.
-We want to apply a U rotation matrix to y, until the RMSD is minimized.
+
+In order to measure the structural similarity between side chain pairs, we used the root-mean-square deviation (RMSD) of atomic positions which is simply the square root of the distance between all atoms divided by their number.  
+We want to apply a U rotation matrix to y, until the RMSD is minimized.  
+
+In the exercise the centers of mass of the two sets of vectors used for the RMSD calculation are not at their origin, so I centered the atoms before applying the optimal RMSD superposition. Since the task was to compare the structural similarities between side chains of the same amino acid, I calculated the center of mass (COM) by adding all the coordinates of the side chain atoms to a vector, including the alpha carbon and excluding all hydrogen. Then I divided that vector for the number of atoms (N).  
+
+Finally I centered the atoms by subtracting the center of mass to each coordinate vector in the set. Once I obtained the centered coordinates, I wanted to find the rotation matrix U that minimize the RMSD score, so I applied the singular value decomposition (SVD) to the correlation matrix R.  
+
+Sometimes the rotation matrix U that minimize the RMSD is aroto-inversion, that will superimpose a mirror image. To avoid that we have to multiply the components of the rotation matrix U for Z = diag(1,1,−1), and we also change the sign to the third element of the diagonal matrix S (even that this is not necessary in the calculation of the RMSD from the coordinates). Than I applyed the rotation matrix U to y and I finally calculated the RMSD from the two set of coordinates.  
+
+## 3. Results
+The final results of the exercise are the plots of the RMSD scores distributions of the 18 different amino acids. It is possible to observe that, with some exceptions (ASN and ASP), they show three main distributions shapes.
+
+## 4. Conclusions
+It is possible to observe that the distributions of RMSD scores exhibit certain patterns depending on the flexibility of the side chain, their size and other characteristics.  
+
+Serine, Threonine, Valine and Cystein have the smallest side chain and they have a more compact structure. As expected they have the lowest RMSD score and exhibit the lowest variability in the score, meaning that they have the lowest ability to move in the three-dimensional space.  
+![Image4.1](pictures/small_aa.png)
+
+Tryptophan, Phenylalanine, Tyrosine, Isoleucine, Leucine, Proline and Histidine are the amino acids that present a characteristic pattern in their structural variability. In particular, they show a clear bimodal distribution of their RMSD scores, that may indicate that they can be found in two main different spatial arrangements. Probably the most reasonable explanation of this phenomenon is that, since most of these amino acids are present in β-sheets, the two peaks may be related to the fact that the side chains alternately point in opposite directions from the sheet.  
+![Image4.2](pictures/medium_aa5.png)
+
+Arginine, Lysine, Glutamate, Glutamine and Methionine are the amino acids that present the largest RMSD scores and have the largest variability in their distributions. With the exception of Methionine they are polar amino acids, they all have long side chains and, as it is possible to observe, due to the nature of their structure they have less constraints than others amino acids and they are therefore more flexible and have more freedom of movement.  
+![Image4.3](pictures/large_aa2.png)
+
+
+
+
 
 
 
