@@ -157,7 +157,7 @@ The Nussinov algorithm is historically the first attempts at RNA secondary struc
 where  𝑠(𝑖,𝑗)  can be just  1  in case of base pair or can have different scores (3,2,1) depending on the specific bases that form a pair in that cell. After the matrix is filled, the optimal RNA secondary structure is obtained by backtracking from the top right cell.
 The Nussinov algorithm is a really simplified version of RNA folding and it has several limitations. It has a computational complexity 𝑂(𝑁^3) and cannot consider pseudoknots, otherwise the computational complexity could reach 𝑂(𝑁^6). An other problem is the ambiguity because often the same structure can be procuded in several ways and the structures with the maximum number of base pairs are often not unique.  
 
-Δ𝐺𝑙𝑜𝑜𝑝(𝑛)=Δ𝐺size (𝑛)+Δ𝐺sequence +Δ𝐺special, in this way this method provide a much better prediction and an unambiguous solution to the folding problem using free energy minimization.
+Δ𝐺_𝑙𝑜𝑜𝑝(𝑛) = Δ𝐺_size(𝑛) + Δ𝐺_sequence + Δ𝐺_special, in this way this method provide a much better prediction and an unambiguous solution to the folding problem using free energy minimization.
 
 ## 2. Materials and methods
 
@@ -241,14 +241,16 @@ The base pair distance between the two dot-bracket strings I obtained is 29.
 ![](normal_and_contraints_structures)
 
 ### Sketch of the two structures
-The structure obtained by the constraint structure prediction (on the left) resemble a tRNA structure but, especially in the area close to the central inner loop, it has an excessive amount of base pairs. The structure predicted with unconstraint prediction (on the right) doesn't resemble any known structure. The sketch of the structures is obtained with [forna](http://rna.tbi.univie.ac.at/forna/), it is a RNA secondary structure visualization tool provided by the University of Vienna [8].
-![image.png](/picturesRNA_forge.png)
+The structure obtained by the constraint structure prediction (on the left) resemble a tRNA structure but, especially in the area close to the central inner loop, it has an excessive amount of base pairs. The structure predicted with unconstraint prediction (on the right) doesn't resemble any known structure. The sketch of the structures is obtained with [forna](http://rna.tbi.univie.ac.at/forna/), it is a RNA secondary structure visualization tool provided by the University of Vienna [8].  
+
+![image.png](/pictures/RNA_forge.png)
 
 #### Annotation.
 In order to annotate the sequence I performed a search in the Rfam database, which is a collection of RNA families, each represented by multiple sequence alignments and consensus secondary structures [5]. As expected the result of my search is that the sequence is a tRNA. The structure prediction compatible with the annotation is the constraint one.
 
 ### RNAfold webserver.
-Running the [RNAfold](http://rna.tbi.univie.ac.at/cgi-bin/RNAWebSuite/RNAfold.cgi) webserver [9] with both constraint and uncontraint structure prediction is possible to observe that, even if the MFE of the structure obtained by unconstraint prediction is lower (-26.80kcal/mol) than the MFE obtained with constraint prediction (-24.50kcal/mol), the first one (figure on the right) has a really large variable loop which is not found in tRNA structures. Its base pair probabilities in the additional loop and anticodon stem are lower than the base pair probabilities found in the structure predicted with constraint, suggesting that the structure obtained with constraint prediction is closer to the real one.
+Running the [RNAfold](http://rna.tbi.univie.ac.at/cgi-bin/RNAWebSuite/RNAfold.cgi) webserver [9] with both constraint and uncontraint structure prediction is possible to observe that, even if the MFE of the structure obtained by unconstraint prediction is lower (-26.80kcal/mol) than the MFE obtained with constraint prediction (-24.50kcal/mol), the first one (figure on the right) has a really large variable loop which is not found in tRNA structures. Its base pair probabilities in the additional loop and anticodon stem are lower than the base pair probabilities found in the structure predicted with constraint, suggesting that the structure obtained with constraint prediction is closer to the real one.  
+
 ![image.png](pictures/rnafold.png)
 
 ### Energy folding model.
@@ -259,19 +261,11 @@ The loop-based energy model provide a much better prediction than the Nussinov a
 
 ## References
 [1] Hofacker, I. L., Stadler, P. F., & Stadler, P. F. (2006). RNA Secondary Structures. Encyclopedia of Molecular Cell Biology     and Molecular Medicine.
-
 [2] Gorodkin Jan; Hofacker, Ivo L.; Ruzzo, Walter L. (2014) Concepts and introduction to RNA bioinformatics. Methods in molecular biology, 1097:1-31.
-
 [3] Hofacker IL. (2014) Energy-directed RNA structure prediction. Methods Mol Biol. 1097:71-84.
-
 [4] Giulia Corsi. PhD fellow Animal Genetics, Bioinformatics and Breeding. University of Copenhagen.
-
 [5] Sam Griffiths-Jones, Alex Bateman, Mhairi Marshall, Ajay Khanna and Sean R. Eddy. (2019) Rfam: an RNA family database.
-
-[6] Washietl S1, Bernhart SH, Kellis M. (2014) Energy-based RNA consensus secondary structure prediction in multiple sequence alignments. Methods Mol Biol. 1097:125-41.
-    
-[7] Havgaard JH1, Gorodkin J. (2014) RNA structural alignments, part I: Sankoff-based approaches for structural alignments. Methods Mol Biol. 1097:275-90.
-    
+[6] Washietl S1, Bernhart SH, Kellis M. (2014) Energy-based RNA consensus secondary structure prediction in multiple sequence alignments. Methods Mol Biol. 1097:125-41.  
+[7] Havgaard JH1, Gorodkin J. (2014) RNA structural alignments, part I: Sankoff-based approaches for structural alignments. Methods Mol Biol. 1097:275-90.  
 [8] Kerpedjiev P, Hammer S, Hofacker IL. (2015) Forna (force-directed RNA): Simple and effective online RNA secondary structure     diagrams. Bioinformatics 31(20):3377-9.
-
 [9] Ivo L. Hofacker. (2003) Vienna RNA secondary structure server. Nucleic Acids Res. 31(13): 3429–3431.
