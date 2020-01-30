@@ -93,10 +93,10 @@ print(psi_list[1])
 
 # Print phi and psi by own implementation
 def calc_psi_phi(res1, res2, res3):                   # we need a function that take three residues (r-1, r, r+1):
-    n = res2['N'].get_vector()                        #               r-1 ;       r      ; r+1                
-    ca = res2['CA'].get_vector()                      #                C  ; N, Calpha, C ;  N
-    c = res2['C'].get_vector()                        # from r-1, r   ( 4 atoms for phi  )          
-    # Calculate phi                                   # from r, r+1       (  4 atoms for psi )            
+    n = res2['N'].get_vector()                        #               r-1 |       r      | r+1                
+    ca = res2['CA'].get_vector()                      #                C  | N, Calpha, C |  N
+    c = res2['C'].get_vector()                        # from r-1, r    ( 4 atoms for phi ]          
+    # Calculate phi                                   # from r, r+1       [ 4 atoms for psi )            
     cp = res1['C'].get_vector()                       # cp = carbon previous residue (r-1)
     phi = calc_dihedral(cp, n, ca, c)
     # Calculate psi
