@@ -21,9 +21,9 @@ Your task is to examine the variability in terms of RMSD of the side chains of t
 The task of this exercise is to investigate the distributions of RMSD scores between side chains pairs of 18 different amino acids. The two side chains from each pair should come from different proteins, this is a way to compare the variability of the amino acid structures and their differences. Gly and Ala are excluded from the analysis since their side chains are too small, and without enough degrees of freedom, to present a significative difference in terms of structural variability.  
 
 ## 2. Materials and methods  
-For the exercise we used the Top500 database of PDB files, available from [Richardson Lab Web Site](http://kinemage.biochem.duke.edu/subindex.php#database). Richardson and colleagues, from Duke University, used this data for their Ramachandran and rotamer studies. This is a selection of 500 files from the Protein Data Bank (PDB) that are high resolution (1.8 Å or better), low homology, and high quality. The PDB format provides a standard representation for macromolecular structure data derived from X-ray diffraction and NMR studies. 
+For the exercise we used the Top500 database of PDB files, available from [Richardson Lab Web Site](http://kinemage.biochem.duke.edu/subindex.php#database). Richardson and colleagues, from Duke University, used this data for their Ramachandran and rotamer studies. This is a selection of 500 files from the Protein Data Bank (PDB) that are high resolution (1.8 Å or better), low homology, and high quality [1]. The PDB format provides a standard representation for macromolecular structure data derived from X-ray diffraction and NMR studies [2]. 
 
-The programming language we used to perform the analysis is Python 3. In addition we used NumPy package to do operations with vectors and matrices, Matplotlib to plot the histograms and Bio.Python to work with the PDB files. In particular we used a Bio.Python module called Bio.PDB, the module has been developed by Thomas Hamelryck and focuses on working with crystal structures of biological macromolecules. It contains a parser for PDB files that makes the atomic information available in an easy-to-use but powerful data structure.
+The programming language we used to perform the analysis is Python 3. In addition we used NumPy package to do operations with vectors and matrices, Matplotlib to plot the histograms and Bio.Python to work with the PDB files. In particular we used a Bio.Python module called Bio.PDB, the module has been developed by Thomas Hamelryck and focuses on working with crystal structures of biological macromolecules. It contains a parser for PDB files that makes the atomic information available in an easy-to-use but powerful data structure [3].
 
 ### 2.1. Implementation
 For my implementation I used five functions that I will not completely report here to avoid redundancy. The first function extract the protein structures from a given directory. The second function extract the atoms coordinates of the side chain of a given residue, calculate the side chain center of mass and return the centered set of coordinates. The third function superimpose two side chains, represented by two 3 by N NumPy matrices, and return their minimum RMSD. The fourth function extract 1000 side chains pairs (of a certain amino acid) randomly sampled from the protein data set, and calculate their RMSD. The last function is used to make and save the plots of the RMSD distributions.
@@ -81,14 +81,17 @@ Then I obtain the centered coordinates of their side chains (method described in
         rmsd_list.append(rmsd)
 ```
 #### Optimal RMSD superposition
-The implementation of the RMSD algorithm (and most of the rest of the code) is based on weekly exercises solutions provided by our Structural Bioinformatics professor Thomas Hamelryck. 
+The implementation of the RMSD algorithm (and most of the rest of the code) is based on weekly exercises solutions provided by our Structural Bioinformatics professor Thomas Hamelryck [4]. 
 
 In order to measure the structural similarity between side chain pairs, we used the root-mean-square deviation (RMSD) of atomic positions which is simply the square root of the distance between all atoms divided by their number.  
 We want to apply a U rotation matrix to y, until the RMSD is minimized.  
+![](pictures/RMSD_formula.png)
 
 In the exercise the centers of mass of the two sets of vectors used for the RMSD calculation are not at their origin, so I centered the atoms before applying the optimal RMSD superposition. Since the task was to compare the structural similarities between side chains of the same amino acid, I calculated the center of mass (COM) by adding all the coordinates of the side chain atoms to a vector, including the alpha carbon and excluding all hydrogen. Then I divided that vector for the number of atoms (N).  
+![](pictures/COM_formula.png)
 
 Finally I centered the atoms by subtracting the center of mass to each coordinate vector in the set. Once I obtained the centered coordinates, I wanted to find the rotation matrix U that minimize the RMSD score, so I applied the singular value decomposition (SVD) to the correlation matrix R.  
+![](pictures/SVD_formula.png)
 
 Sometimes the rotation matrix U that minimize the RMSD is aroto-inversion, that will superimpose a mirror image. To avoid that we have to multiply the components of the rotation matrix U for Z = diag(1,1,−1), and we also change the sign to the third element of the diagonal matrix S (even that this is not necessary in the calculation of the RMSD from the coordinates). Than I applyed the rotation matrix U to y and I finally calculated the RMSD from the two set of coordinates.  
 
@@ -125,6 +128,15 @@ Tryptophan, Phenylalanine, Tyrosine, Isoleucine, Leucine, Proline and Histidine 
 
 Arginine, Lysine, Glutamate, Glutamine and Methionine are the amino acids that present the largest RMSD scores and have the largest variability in their distributions. With the exception of Methionine they are polar amino acids, they all have long side chains and, as it is possible to observe, due to the nature of their structure they have less constraints than others amino acids and they are therefore more flexible and have more freedom of movement.  
 ![Image4.3](pictures/large_aa2.png)
+
+## References
+[1] S.C. Lovell, I.W. Davis, W.B. Arendall III, P.I.W. de Bakker, J.M. Word, M.G. Prisant, J.S. Richardson, and D.C. Richardson     (2003) "Structure Validation by $Cα$ Geometry: $φ,ψ$ and $Cβ$ Deviation" Proteins: Structure, Function and Genetics 50:437-450.
+
+[2] H.M. Berman, K. Henrick, H. Nakamura (2003) Announcing the worldwide Protein Data Bank Nature Structural Biology 10 (12): 980.
+
+[3] Hamelryck, T., Manderick, B. (2003) PDB parser and structure class implemented in Python. Bioinformatics 19: 2308–2310
+
+[4] Thomas Hamelryck. Associate professor, Computational and RNA Biology; University of Copenhagen.
 
 ------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -261,11 +273,19 @@ The loop-based energy model provide a much better prediction than the Nussinov a
 
 ## References
 [1] Hofacker, I. L., Stadler, P. F., & Stadler, P. F. (2006). RNA Secondary Structures. Encyclopedia of Molecular Cell Biology     and Molecular Medicine.
+
 [2] Gorodkin Jan; Hofacker, Ivo L.; Ruzzo, Walter L. (2014) Concepts and introduction to RNA bioinformatics. Methods in molecular biology, 1097:1-31.
+
 [3] Hofacker IL. (2014) Energy-directed RNA structure prediction. Methods Mol Biol. 1097:71-84.
+
 [4] Giulia Corsi. PhD fellow Animal Genetics, Bioinformatics and Breeding. University of Copenhagen.
+
 [5] Sam Griffiths-Jones, Alex Bateman, Mhairi Marshall, Ajay Khanna and Sean R. Eddy. (2019) Rfam: an RNA family database.
-[6] Washietl S1, Bernhart SH, Kellis M. (2014) Energy-based RNA consensus secondary structure prediction in multiple sequence alignments. Methods Mol Biol. 1097:125-41.  
-[7] Havgaard JH1, Gorodkin J. (2014) RNA structural alignments, part I: Sankoff-based approaches for structural alignments. Methods Mol Biol. 1097:275-90.  
+
+[6] Washietl S1, Bernhart SH, Kellis M. (2014) Energy-based RNA consensus secondary structure prediction in multiple sequence alignments. Methods Mol Biol. 1097:125-41.
+    
+[7] Havgaard JH1, Gorodkin J. (2014) RNA structural alignments, part I: Sankoff-based approaches for structural alignments. Methods Mol Biol. 1097:275-90.
+    
 [8] Kerpedjiev P, Hammer S, Hofacker IL. (2015) Forna (force-directed RNA): Simple and effective online RNA secondary structure     diagrams. Bioinformatics 31(20):3377-9.
+
 [9] Ivo L. Hofacker. (2003) Vienna RNA secondary structure server. Nucleic Acids Res. 31(13): 3429–3431.
