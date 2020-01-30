@@ -25,7 +25,7 @@ The programming language we used to perform the analysis is Python 3. In additio
 ### 2.1 Implementation
 For my implementation I used five functions that I will not completely report here to avoid redundancy. The first function extract the protein structures from a given directory. The second function extract the atoms coordinates of the side chain of a given residue, calculate the side chain center of mass and return the centered set of coordinates. The third function superimpose two side chains, represented by two 3 by N NumPy matrices, and return their minimum RMSD. The fourth function extract 1000 side chains pairs (of a certain amino acid) randomly sampled from the protein data set, and calculate their RMSD. The last function is used to make and save the plots of the RMSD distributions.
 
-#### Parsing the structure.
+#### Parsing the structure
 I start my implementation by parsing all the structure contained in the Top500H directory, try and except are used in order to ignore the structure that cannot be parsed by the PDBParser. I use the miscellaneous operating system interfaces (OS) module to access the PDB files contained in the directory.
 
 ```python
@@ -39,7 +39,7 @@ except:
     print(filename, "can't be parsed")
 ```
 
-#### Extract side chain pairs.
+#### Extract side chain pairs
 I select randomly two protein structures using random.choice() from NumPy package. Then I extract all the desired amino acids from each protein and, if both proteins contain the selected amino acid, I choose randomly one residue from each protein.
 
 ```python
@@ -77,10 +77,9 @@ Then I obtain the centered coordinates of their side chains (method described in
         rmsd = calc_RMSD(sc1, sc2)
         rmsd_list.append(rmsd)
 ```
-#### Optimal RMSD superposition.
-
+#### Optimal RMSD superposition
 The implementation of the RMSD algorithm (and most of the rest of the code) is based on weekly exercises solutions provided by our Structural Bioinformatics professor Thomas Hamelryck. 
-In order to measure the structural similarity between side chain pairs, we used the root-mean-square deviation (RMSD) of atomic positions, which is simply the square root of the distance between all atoms divided by their number.
+In order to measure the structural similarity between side chain pairs, we used the root-mean-square deviation (RMSD) of atomic positions which is simply the square root of the distance between all atoms divided by their number.
 We want to apply a U rotation matrix to y, until the RMSD is minimized.
 
 
