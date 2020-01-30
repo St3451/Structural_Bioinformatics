@@ -104,7 +104,7 @@ if __name__=="__main__":
     p = PDBParser(QUIET = True) # Quiet ignore warnings 
     s_protein_list = []
     directory = "/home/lpp/BIOINFORMATICS/sb2019/week7/top500H"
-    for filename in os.listdir(directory): # Add to a dictionary the structure of each protein file and the name of the protein as key
+    for filename in os.listdir(directory): 
         print("parsing ", filename, "...")
         try:
             # Get structure                                                                
