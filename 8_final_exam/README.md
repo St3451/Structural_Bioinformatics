@@ -1,6 +1,6 @@
 # Final exam
 
-## A) Protein practical 
+## A) Protein practical part
 
 Your task is to examine the variability in terms of RMSD of the side chains of the 18 amino acids excluding Gly and Ala. Gly and Ala are excluded because they lack degrees of freedom in their side chains due to their small size.   
 • As protein data base, use the top500 collection of high quality protein structures.  
@@ -123,13 +123,9 @@ Tryptophan, Phenylalanine, Tyrosine, Isoleucine, Leucine, Proline and Histidine 
 Arginine, Lysine, Glutamate, Glutamine and Methionine are the amino acids that present the largest RMSD scores and have the largest variability in their distributions. With the exception of Methionine they are polar amino acids, they all have long side chains and, as it is possible to observe, due to the nature of their structure they have less constraints than others amino acids and they are therefore more flexible and have more freedom of movement.  
 ![Image4.3](pictures/large_aa2.png)
 
+------------------------------------------------------------------------------------------------------------------------------------------
 
-
-
-
-
-
-## B. RNA practical
+## B. RNA practical part
 
 The overall accuracy of RNA secondary structure prediction can be improved if for some stretches of the RNA sequence the structure is known. Knowledge about such substructures could come from either experimental or computational studies. Here, we will extend the Nussinov algorithm to consider a single known substructure at a given location. In addition, we require a minimum loop length of 3.
 
