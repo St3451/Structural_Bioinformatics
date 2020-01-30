@@ -6,7 +6,7 @@ The exam is composed of three parts: protein theory, protein practice and rna. T
 ## A) Protein practical part
 
 Your task is to examine the variability in terms of RMSD of the side chains of the 18 amino acids excluding Gly and Ala. Gly and Ala are excluded because they lack degrees of freedom in their side chains due to their small size.   
-* As protein data base, use the top500 collection of high quality protein structures.  
+* As protein data base, use the [top500](http://kinemage.biochem.duke.edu/databases/top500.php) collection of high quality protein structures.  
 * Use Bio.PDB to implement the script.
      * Disregard any structures that cannot be parsed by the Bio.PDB parser, but ignore warnings.  
 * For each of the 18 amino acids (Gly and Ala excluded), select 1000 pairs randomly sampled from the protein data set with replacement.
@@ -160,7 +160,7 @@ Constraint: .........................(((((xxxxxxx)))))..........................
 
 4. Annotate the RNA sequence by a method of your choice. Which structure prediction (constraint/unconstraint) is compatible with the annotation?
 
-5. Run the RNAfold webserver without and with constraint. Compare the foldings and describe your observations.
+5. Run the [RNAfold](http://rna.tbi.univie.ac.at/cgi-bin/RNAWebSuite/RNAfold.cgi) webserver without and with constraint. Compare the foldings and describe your observations.
 
 ## 1. Introduction
 The Nussinov algorithm is historically the first attempts at RNA secondary structure prediction. It is a dynamic programming algorithm that, given a RNA sequence, recursively finds the secondary structure that maximize the number of base pairs. In the Nussinov algorithm we first initialize a scoring matrix, we decide a minimum loop size and then we start filling each cell by iterating through the diagonals of the matrix. We can give a score to a cell 𝑖,𝑗 by looking at the three neighbor cells and the possible branching structures (bifurcation). We can give a score to a cell 𝑖,𝑗 by looking at the three neighbor cells and the possible branching structures (bifurcation). If we consider 𝐸(𝑖,𝑗) as the maximum number of base pairs for the subsequence 𝑥\[𝑖;𝑗\] , than 
