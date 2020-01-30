@@ -242,14 +242,14 @@ The base pair distance between the two dot-bracket strings I obtained is 29.
 
 ### Sketch of the two structures
 The structure obtained by the constraint structure prediction (on the left) resemble a tRNA structure but, especially in the area close to the central inner loop, it has an excessive amount of base pairs. The structure predicted with unconstraint prediction (on the right) doesn't resemble any known structure. The sketch of the structures is obtained with [forna](http://rna.tbi.univie.ac.at/forna/), it is a RNA secondary structure visualization tool provided by the University of Vienna [8].
-![image.png](RNA_forge.png)
+![image.png](/picturesRNA_forge.png)
 
 #### Annotation.
 In order to annotate the sequence I performed a search in the Rfam database, which is a collection of RNA families, each represented by multiple sequence alignments and consensus secondary structures [5]. As expected the result of my search is that the sequence is a tRNA. The structure prediction compatible with the annotation is the constraint one.
 
 ### RNAfold webserver.
 Running the [RNAfold](http://rna.tbi.univie.ac.at/cgi-bin/RNAWebSuite/RNAfold.cgi) webserver [9] with both constraint and uncontraint structure prediction is possible to observe that, even if the MFE of the structure obtained by unconstraint prediction is lower (-26.80kcal/mol) than the MFE obtained with constraint prediction (-24.50kcal/mol), the first one (figure on the right) has a really large variable loop which is not found in tRNA structures. Its base pair probabilities in the additional loop and anticodon stem are lower than the base pair probabilities found in the structure predicted with constraint, suggesting that the structure obtained with constraint prediction is closer to the real one.
-![image.png](rnafold.png)
+![image.png](pictures/rnafold.png)
 
 ### Energy folding model.
 The MFE folding predict the secondary structure of an RNA sequence by minimizing its free energy, the algorithms based on this method attempt to find the structure of minimal free energy among all possible structures. As mentioned in the introduction, while the Nussinov algorithm attempt to obtain the optimal structure by simply maximizing the number of base pairs, the full energy model ( loop-based energy model or nearest neighbor model) consider the stacking interactions between bases and finds the minimum free energy optimal structure by distinguish which type of loop is closed by each pair [3]. In this more complex model, the secondary structure can be uniquely decomposed into loops (loop decomposition) and the total free energy of a structure become the sum over the energy of its constituent loops [1]. 
