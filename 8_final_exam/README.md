@@ -14,18 +14,18 @@ Your task is to examine the variability in terms of RMSD of the side chains of t
         * Make a histogram of the RMSD distribution for each of the 18 amino acids. Make sure all histograms use the same scale on the x- and y-axis.  
     * Discuss and interpret the results.  
 
-### 1. Introduction  
+## 1. Introduction  
 The task of this exercise is to investigate the distributions of RMSD scores between side chains pairs of 18 different amino acids. The two side chains from each pair should come from different proteins, this is a way to compare the variability of the amino acid structures and their differences. Gly and Ala are excluded from the analysis since their side chains are too small, and without enough degrees of freedom, to present a significative difference in terms of structural variability.  
 
-### 2. Materials and methods  
+## 2. Materials and methods  
 For the exercise we used the Top500 database of PDB files, available from [Richardson Lab Web Site](http://kinemage.biochem.duke.edu/subindex.php#database). Richardson and colleagues, from Duke University, used this data for their Ramachandran and rotamer studies. This is a selection of 500 files from the Protein Data Bank (PDB) that are high resolution (1.8 Å or better), low homology, and high quality. The PDB format provides a standard representation for macromolecular structure data derived from X-ray diffraction and NMR studies. 
 
 The programming language we used to perform the analysis is Python 3. In addition we used NumPy package to do operations with vectors and matrices, Matplotlib to plot the histograms and Bio.Python to work with the PDB files. In particular we used a Bio.Python module called Bio.PDB, the module has been developed by Thomas Hamelryck and focuses on working with crystal structures of biological macromolecules. It contains a parser for PDB files that makes the atomic information available in an easy-to-use but powerful data structure.
 
-#### 2.1 Implementation
+### 2.1 Implementation
 For my implementation I used five functions that I will not completely report here to avoid redundancy. The first function extract the protein structures from a given directory. The second function extract the atoms coordinates of the side chain of a given residue, calculate the side chain center of mass and return the centered set of coordinates. The third function superimpose two side chains, represented by two 3 by N NumPy matrices, and return their minimum RMSD. The fourth function extract 1000 side chains pairs (of a certain amino acid) randomly sampled from the protein data set, and calculate their RMSD. The last function is used to make and save the plots of the RMSD distributions.
 
-##### Parsing the structure.
+#### Parsing the structure.
 I start my implementation by parsing all the structure contained in the Top500H directory, try and except are used in order to ignore the structure that cannot be parsed by the PDBParser. I use the miscellaneous operating system interfaces (OS) module to access the PDB files contained in the directory.
 
 ```python
@@ -39,7 +39,7 @@ except:
     print(filename, "can't be parsed")
 ```
 
-##### Extract side chain pairs.
+#### Extract side chain pairs.
 I select randomly two protein structures using random.choice() from NumPy package. Then I extract all the desired amino acids from each protein and, if both proteins contain the selected amino acid, I choose randomly one residue from each protein.
 
 ```python
@@ -77,22 +77,11 @@ Then I obtain the centered coordinates of their side chains (method described in
         rmsd = calc_RMSD(sc1, sc2)
         rmsd_list.append(rmsd)
 ```
-##### Optimal RMSD superposition.
+#### Optimal RMSD superposition.
 
 The implementation of the RMSD algorithm (and most of the rest of the code) is based on weekly exercises solutions provided by our Structural Bioinformatics professor Thomas Hamelryck. 
 In order to measure the structural similarity between side chain pairs, we used the root-mean-square deviation (RMSD) of atomic positions, which is simply the square root of the distance between all atoms divided by their number.
 We want to apply a U rotation matrix to y, until the RMSD is minimized.
-\begin{equation}
-\operatorname{RMSD}(\boldsymbol{x}, \boldsymbol{y})=\min _{U} \sqrt{\frac{1}{n} \sum_{i=0}^{n-1}\left|x_{i}-U y_{i}\right|^{2}}
-\end{equation}
-In the exercise the centers of mass of the two sets of vectors used for the RMSD calculation are not at their origin, so I centered the atoms before applying the optimal RMSD superposition. Since the task was to compare the structural similarities between side chains of the same amino acid, I calculated the center of mass (COM) by adding all the coordinates of the side chain atoms to a vector, including the alpha carbon and excluding all hydrogen. Then I divided that vector for the number of atoms (N). 
-\begin{equation}
-COM =\frac{1}{N} \sum_{i=1}^{N}\left (a_{i x},  b_{i y},  c_{i z }\right)
-\end{equation}
-Finally I centered the atoms by subtracting the center of mass to each coordinate vector in the set. Once I obtained the centered coordinates, I wanted to find the rotation matrix U that minimize the RMSD score, so I applied the singular value decomposition (SVD) to the correlation matrix R. 
-\begin{equation}R=Y X^{t}=V S W^{t}\end{equation} \begin{equation}U_{\min }=W V^{t}\end{equation}
-Sometimes the rotation matrix U that minimize the RMSD is a roto-inversion, that will superimpose a mirror image. To avoid that we have to multiply the components of the rotation matrix U for $Z = diag(1,1,-1)$, and we also change the sign to the third element of the diagonal matrix S (even that this is not necessary in the calculation of the RMSD from the coordinates). Than I applyed the rotation matrix U to y and I finally calculated the RMSD from the two set of coordinates.
-
 
 
 
