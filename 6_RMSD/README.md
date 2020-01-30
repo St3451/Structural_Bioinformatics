@@ -105,7 +105,7 @@ print("\n\nRMSD by formula and by rotated coordinates:\n", part1[0],";", part1[1
 print("Rotation matrix:\n", calc_RMSD(x, y)[2],"\n\n")
 ```
 
-* __Part 2 - Work with PDB protein__
+* __Part 2 - Work with PDB proteins__
 
 ```python
 # Load the PDB structure and select the models (0 and 1) and chain A
