@@ -157,6 +157,121 @@ The Nussinov algorithm is historically the first attempts at RNA secondary struc
 where  𝑠(𝑖,𝑗)  can be just  1  in case of base pair or can have different scores (3,2,1) depending on the specific bases that form a pair in that cell. After the matrix is filled, the optimal RNA secondary structure is obtained by backtracking from the top right cell.
 The Nussinov algorithm is a really simplified version of RNA folding and it has several limitations. It has a computational complexity 𝑂(𝑁^3) and cannot consider pseudoknots, otherwise the computational complexity could reach 𝑂(𝑁^6). An other problem is the ambiguity because often the same structure can be procuded in several ways and the structures with the maximum number of base pairs are often not unique.  
 
-Δ𝐺𝑙𝑜𝑜𝑝(𝑛)=Δ𝐺size (𝑛)+Δ𝐺sequence +Δ𝐺special,  
+Δ𝐺𝑙𝑜𝑜𝑝(𝑛)=Δ𝐺size (𝑛)+Δ𝐺sequence +Δ𝐺special, in this way this method provide a much better prediction and an unambiguous solution to the folding problem using free energy minimization.
 
-in this way this method provide a much better prediction and an unambiguous solution to the folding problem using free energy minimization [3].
+## 2. Materials and methods
+
+### Nussinov implementation
+For the exercise I used my implementation of the Nussinov algorithm using weighted scores (𝜖(𝐶,𝐺) = 𝜖(𝐺,𝐶) = −3,   
+𝜖(𝐴,𝑈) = 𝜖(𝑈,𝐴) = −2, 𝜖(𝐺,𝑈) = 𝜖(𝑈,𝐺) = −1), it is based on Giulia Corsi [4] implementation and on line guides I received in week 3 lecture exercise of Structural Bioinformatics. I start by generating a matrix (a list of list) that will be initialized with all zeros. Than I proceed by iterating through the diagonals of half of the matrix assigning a score to each cell.
+
+```python
+# Iterate through the diagonals  
+for n in range(min_loop_size + 1, len(seq)):                      
+        for j in range(n, len(seq)):                             
+            i = j - n                                             
+            score_cell(seq, con, matrix_lst, i, j, min_loop_size)
+```
+
+The scoring of each cell is performed by considering the three neighbor cells and the branching structure with the highest score.
+
+```python
+# The score list will store the scores of the four options for obtaining a cell
+score_list = []
+    bp_score = 0
+    # Check if there is a base pair and attribute the relative score
+    if (seq[i] == "A" and seq[j] == "U") or (seq[i] == "U" and seq[j] == "A"):
+        bp_score = 2
+    elif (seq[i] == "G" and seq[j] == "C") or (seq[i] == "C" and seq[j] == "G"):
+        bp_score = 3
+    elif (seq[i] == "G" and seq[j] == "U") or (seq[i] == "U" and seq[j] == "G"):
+        bp_score = 1
+    # Append the score of the diagonal cell plus the base pair score
+    score_list.append(score_matrix[i+1][j-1] + bp_score)  
+    # Append the score of the left cell
+    score_list.append(score_matrix[i][j-1])                 
+    # Append the score of the bottom cell
+    score_list.append(score_matrix[i+1][j])                 
+    # Append the score of the branching structure with highest score
+    k_scores = []                                          
+    for k in range(i,j - minimum_loop_size):
+        score = score_matrix[i][k] + score_matrix[k+1][j]
+        k_scores.append(score)
+    score_list.append(max(k_scores))
+    # Score the matrix with the highest score between the four options
+    score_matrix[i][j] = max(score_list)  
+```      
+
+Another important part of the algorithm is the backtracking, it allows to obtain the optimal structure represented by a dot brackets notation string. I first initialize a dot bracket list filled with dots, then I used the backtracking function implemented by Giulia Corsi [4]. Giulia function use recursion and starting from the top right corner of the matrix, move to the cell from which the score at that position has been obtained. If the score derives from a bifurcation, the function calls itself (recursion) for obtaining the two optimal substructures. It is interesting to note that changing the order of the if statement often result in a different structure, that occurs because the Nusinov decomposition is ambiguous and there may be different structures with the same maximum number of base pairs.  
+
+### Constraint implementation
+In order to obtain the constraint requested in the exercise I simply added three conditions in the scoring function, and I added the option `constraint` as an argument of the function. If the constraint is set to true and a constraint sequence is added, the function will look at each position of the constraint sequence. If it finds "(" and ")" at position 𝑖,𝑗 it will only allow base pairs, if it finds an "x" at position 𝑖 or 𝑗 it will not allow any base pairs, and finally if it finds a "." at position 𝑖 and 𝑗 it will not give any restriction. Then the bifurcation score is added as usual.
+
+```python
+# Check if there is a base pair: if yes force to have base pair
+if (constraint[i] == "(" and constraint[j] == ")") or (constraint[j] == "(" and constraint[i] == ")"):
+    if (seq[i] == "A" and seq[j] == "U") or (seq[i] == "U" and seq[j] == "A"):
+        bp_score = 2
+    elif (seq[i] == "G" and seq[j] == "C") or (seq[i] == "C" and seq[j] == "G"):
+        bp_score = 3
+    elif (seq[i] == "G" and seq[j] == "U") or (seq[i] == "U" and seq[j] == "G"):
+        bp_score = 1
+    score_list.append(score_matrix[i+1][j-1] + bp_score)   
+# Check if the base pair is forbidden: if yes force to avoid base pair
+elif (constraint[i] == "x" or constraint[j] == "x"):
+    score_list.append(score_matrix[i][j-1])                 
+    score_list.append(score_matrix[i+1][j])                 
+# Check if there are not constraints: if yes don't use restrictions
+elif (constraint[i] == "." and constraint[j] == "."):
+    ...
+```     
+
+If the constraint is set to False, a dot brackets sequence containing all dots will be generated and it will be used as constraint sequence, therefore allowing all possible structures.
+
+```python
+def dinamic_programming_folding(seq, con, matrix_lst, min_loop_size, constrain = False):
+    if constrain == False:
+        con = create_lst_db(seq)
+```
+
+## 3. Results
+
+### Results of applying my implementation
+The base pair distance between the two dot-bracket strings I obtained is 29.
+![](normal_and_contraints_structures)
+
+### Sketch of the two structures
+The structure obtained by the constraint structure prediction (on the left) resemble a tRNA structure but, especially in the area close to the central inner loop, it has an excessive amount of base pairs. The structure predicted with unconstraint prediction (on the right) doesn't resemble any known structure. The sketch of the structures is obtained with [forna](http://rna.tbi.univie.ac.at/forna/), it is a RNA secondary structure visualization tool provided by the University of Vienna [8].
+![image.png](RNA_forge.png)
+
+#### Annotation.
+In order to annotate the sequence I performed a search in the Rfam database, which is a collection of RNA families, each represented by multiple sequence alignments and consensus secondary structures [5]. As expected the result of my search is that the sequence is a tRNA. The structure prediction compatible with the annotation is the constraint one.
+
+### RNAfold webserver.
+Running the [RNAfold](http://rna.tbi.univie.ac.at/cgi-bin/RNAWebSuite/RNAfold.cgi) webserver [9] with both constraint and uncontraint structure prediction is possible to observe that, even if the MFE of the structure obtained by unconstraint prediction is lower (-26.80kcal/mol) than the MFE obtained with constraint prediction (-24.50kcal/mol), the first one (figure on the right) has a really large variable loop which is not found in tRNA structures. Its base pair probabilities in the additional loop and anticodon stem are lower than the base pair probabilities found in the structure predicted with constraint, suggesting that the structure obtained with constraint prediction is closer to the real one.
+![image.png](rnafold.png)
+
+### Energy folding model.
+The MFE folding predict the secondary structure of an RNA sequence by minimizing its free energy, the algorithms based on this method attempt to find the structure of minimal free energy among all possible structures. As mentioned in the introduction, while the Nussinov algorithm attempt to obtain the optimal structure by simply maximizing the number of base pairs, the full energy model ( loop-based energy model or nearest neighbor model) consider the stacking interactions between bases and finds the minimum free energy optimal structure by distinguish which type of loop is closed by each pair [3]. In this more complex model, the secondary structure can be uniquely decomposed into loops (loop decomposition) and the total free energy of a structure become the sum over the energy of its constituent loops [1]. 
+
+## 4. Conclusions
+The loop-based energy model provide a much better prediction than the Nussinov algorithm. In fact, as we observed in the results, often the base pairs maximization doesn't reflect biological structures. We also observed that the accuracy of the prediction can be increased forcing the algorithm to produce a known substructure in a specific location. One useful method for analyzing the possible alternative structures of a given sequence is the partition function calculation for RNA secondary structure. Basically, the partition function prediction will not consider only the optimal MFE structure but it will provide the base pair probabilities considering all possible structures. Other advanced methods, like the energy-based RNA consensus secondary structure prediction (e.g. RNAalifold program), extend the RNA structure prediction algorithm based on the loop-based model. These methods consider the energy contributions of all sequences in the alignments and add phylogenetic information into the energy model [6]. Finally, there are also methods the simultaneously align and predict the secondary structure of multiple RNA sequences by free energy minimization. These methods, based on the Sankof algorithm, have the advantage to increase the accuracy of the prediction but the disadvantage is that they require an increased computational memory. Therefore, in order to decrease the computational complexity, all the implementations that use these methods are heuristic solutions [7].
+
+## References
+[1] Hofacker, I. L., Stadler, P. F., & Stadler, P. F. (2006). RNA Secondary Structures. Encyclopedia of Molecular Cell Biology     and Molecular Medicine.
+
+[2] Gorodkin Jan; Hofacker, Ivo L.; Ruzzo, Walter L. (2014) Concepts and introduction to RNA bioinformatics. Methods in molecular biology, 1097:1-31.
+
+[3] Hofacker IL. (2014) Energy-directed RNA structure prediction. Methods Mol Biol. 1097:71-84.
+
+[4] Giulia Corsi. PhD fellow Animal Genetics, Bioinformatics and Breeding. University of Copenhagen.
+
+[5] Sam Griffiths-Jones, Alex Bateman, Mhairi Marshall, Ajay Khanna and Sean R. Eddy. (2019) Rfam: an RNA family database.
+
+[6] Washietl S1, Bernhart SH, Kellis M. (2014) Energy-based RNA consensus secondary structure prediction in multiple sequence alignments. Methods Mol Biol. 1097:125-41.
+    
+[7] Havgaard JH1, Gorodkin J. (2014) RNA structural alignments, part I: Sankoff-based approaches for structural alignments. Methods Mol Biol. 1097:275-90.
+    
+[8] Kerpedjiev P, Hammer S, Hofacker IL. (2015) Forna (force-directed RNA): Simple and effective online RNA secondary structure     diagrams. Bioinformatics 31(20):3377-9.
+
+[9] Ivo L. Hofacker. (2003) Vienna RNA secondary structure server. Nucleic Acids Res. 31(13): 3429–3431.
