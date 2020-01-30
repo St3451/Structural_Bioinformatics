@@ -1,4 +1,5 @@
 # Final exam
+The exam was composed of three parts: protein theory, protein practice and rna. The theory part (which can be found in `protein_theory.pdf`) is about an interesting comparison between two revolutionary protein structure prediction methods, DeepMind's AlphaFold and AlQuaraishi's end-to-end prediction. The code of the practical exercises can be found in `protein.py` and `rna.py`.
 
 ## A) Protein practical part
 
@@ -13,6 +14,8 @@ Your task is to examine the variability in terms of RMSD of the side chains of t
     * Make a well-justified decision on how you are going to center the atoms before applying the optimal RMSD superposition.  
         * Make a histogram of the RMSD distribution for each of the 18 amino acids. Make sure all histograms use the same scale on the x- and y-axis.  
     * Discuss and interpret the results.  
+
+------------------------------------------------------------------------------------------------------------------------------------------
 
 ## 1. Introduction  
 The task of this exercise is to investigate the distributions of RMSD scores between side chains pairs of 18 different amino acids. The two side chains from each pair should come from different proteins, this is a way to compare the variability of the amino acid structures and their differences. Gly and Ala are excluded from the analysis since their side chains are too small, and without enough degrees of freedom, to present a significative difference in terms of structural variability.  
@@ -125,11 +128,13 @@ Arginine, Lysine, Glutamate, Glutamine and Methionine are the amino acids that p
 
 ------------------------------------------------------------------------------------------------------------------------------------------
 
-## B. RNA practical part
+## B. RNA part
 
 The overall accuracy of RNA secondary structure prediction can be improved if for some stretches of the RNA sequence the structure is known. Knowledge about such substructures could come from either experimental or computational studies. Here, we will extend the Nussinov algorithm to consider a single known substructure at a given location. In addition, we require a minimum loop length of 3.
 
-Use your implementation to predict the structure of the sequence:
+1. Explain how this constraint can be implemented (hint: consider the initialization of the dynamic programming matrix). Then implement this constraint folding in your choice of Nussinov implementation (your own or one of those already available).
+
+2. Use your implementation to predict the structure of the sequence:
 ```
 Sequence: GGGGGUAUAGCUCAGGGGUAGAGCAUUUGACUGCAGAUCAAGAGGUCCCUGGUUCAAAUCCAGGUGCCCCCU
 ```
@@ -137,3 +142,10 @@ for which the following substructure is already known (from position 26 to 42):
 ```
 Constraint: .........................(((((xxxxxxx)))))..............................
 ```
+
+3. Predict the structure for the full sequence (without the folding constraint); again set the minimal loop length to 3. Then, compute the base pair distance between the two dot-bracket strings you have obtained (with/without folding constraint). Discuss the difference in the structure and provide a sketch of the two structures. Does one of the structures resembles a known structure?
+
+4. Annotate the RNA sequence by a method of your choice. Which structure prediction (constraint/unconstraint) is compatible with the annotation?
+
+5. Run the RNAfold webserver without and with constraint. Compare the foldings and describe your observations.
+
