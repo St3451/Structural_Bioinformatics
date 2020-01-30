@@ -8,14 +8,14 @@ The exercise is divided in two parts. In the first part, we use two points set (
 
 ### Implementation
 
-* __Part 1__  
+__Part 1__  
 For the first part of the exercise I create a function that take two sets of vectors, representing the coordinates of the alpha carbons of the residues of two polypeptide chains. The function superimpose the two structures by applying a rotation matrix U that minimize the RMSD and return a tuple of three elements: the RMSD calculated by the closed formula, the RMSD calculated by rotating the coordinates and the rotation matrix U.  
 
 In order to rotate a on top of b (in my code x and y, respectively), I first need to center the two sets of vectors in the center of their three dimensional space axis, which is equivalent to center them to their center of mass. Then I need to find the U rotation matrix to apply to b that result in the minimum RMSD, that can be done by singular value decomposition (SVD) of R (correlation matrix of a and b). Sometimes the minimum RMSD is given by an U that is a roto-reflection matrix, in that case I must change it into a rotation matrix since applying a reflection transformation to a protein will result in a different one.  
 
 In order to calculate the RMSD by the first method I don’t use directly the rotation matrix U, the closed formula uses the average of the square root of the sum of the length of the two sets of vectors (E0) plus the sum of the s diagonal matrix components obtained from SVD of R (L(U)). For the second method I apply the U rotation matrix to b, than I calculate the square root of the average of the sum of the squared difference between the vectors length of a and rotated b.
 
-* __Part 2__  
+__Part 2__  
 I started by loading the PDB structure and selecting the models (0 and 1) and the chain A, than I create a function for extracting the alpha carbons from sane residues (excluding water molecules and residues with missing alpha carbon). The function take a chain as input, select only sane 
 residues and return a 3 by n matrix (where n is equal to the number of residues in the chain) corresponding to the alpha carbons coordinates in the space.
 After this initial step I used the function implemented in the first part of the exercise to superimpose the two structures and calculate the minimum RMSD with the two different methods.  
@@ -23,9 +23,7 @@ After this initial step I used the function implemented in the first part of the
 ### PyMOL
 First I show the 1lcd structure downloaded from PDB, the pictures are generated with pymol.
 ![Image](1lcd_model_colours.png)
-The green polypeptide is the chain A, the red one is chain B and the blue one is chain C.  
-
-In the next picture I show the chain A of the first model (green) superposed to the chain A of the second model (blue).
+The green polypeptide is the chain A, the red one is chain B and the blue one is chain C. In the next picture I show the chain A of the first model (green) superposed to the chain A of the second model (blue).
 ![Image](1lcd_aligned_pymol.png)
 
 When performing the superimposition of two structures, pymol also reports the calculated RMSD:  
