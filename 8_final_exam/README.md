@@ -1,5 +1,7 @@
 # Final exam
-The exam was composed of three parts: protein theory, protein practice and rna. The theory part (which can be found in `protein_theory.pdf`) is about an interesting comparison between two revolutionary protein structure prediction methods, DeepMind's AlphaFold and AlQuaraishi's end-to-end prediction. The code of the practical exercises can be found in `protein.py` and `rna.py`.
+The exam is composed of three parts: protein theory, protein practice and rna. The theory part (which can be found in `protein_theory.pdf`) is about an interesting comparison between two revolutionary protein structure prediction methods, DeepMind's AlphaFold and AlQuaraishi's end-to-end prediction. The code of the practical exercises can be found in `protein.py` and `rna.py`.
+
+------------------------------------------------------------------------------------------------------------------------------------------
 
 ## A) Protein practical part
 
@@ -15,8 +17,6 @@ Your task is to examine the variability in terms of RMSD of the side chains of t
         * Make a histogram of the RMSD distribution for each of the 18 amino acids. Make sure all histograms use the same scale on the x- and y-axis.  
     * Discuss and interpret the results.  
 
-------------------------------------------------------------------------------------------------------------------------------------------
-
 ## 1. Introduction  
 The task of this exercise is to investigate the distributions of RMSD scores between side chains pairs of 18 different amino acids. The two side chains from each pair should come from different proteins, this is a way to compare the variability of the amino acid structures and their differences. Gly and Ala are excluded from the analysis since their side chains are too small, and without enough degrees of freedom, to present a significative difference in terms of structural variability.  
 
@@ -25,7 +25,7 @@ For the exercise we used the Top500 database of PDB files, available from [Richa
 
 The programming language we used to perform the analysis is Python 3. In addition we used NumPy package to do operations with vectors and matrices, Matplotlib to plot the histograms and Bio.Python to work with the PDB files. In particular we used a Bio.Python module called Bio.PDB, the module has been developed by Thomas Hamelryck and focuses on working with crystal structures of biological macromolecules. It contains a parser for PDB files that makes the atomic information available in an easy-to-use but powerful data structure.
 
-### 2.1 Implementation
+### 2.1. Implementation
 For my implementation I used five functions that I will not completely report here to avoid redundancy. The first function extract the protein structures from a given directory. The second function extract the atoms coordinates of the side chain of a given residue, calculate the side chain center of mass and return the centered set of coordinates. The third function superimpose two side chains, represented by two 3 by N NumPy matrices, and return their minimum RMSD. The fourth function extract 1000 side chains pairs (of a certain amino acid) randomly sampled from the protein data set, and calculate their RMSD. The last function is used to make and save the plots of the RMSD distributions.
 
 #### Parsing the structure
@@ -128,7 +128,7 @@ Arginine, Lysine, Glutamate, Glutamine and Methionine are the amino acids that p
 
 ------------------------------------------------------------------------------------------------------------------------------------------
 
-## B. RNA part
+## B) RNA part
 
 The overall accuracy of RNA secondary structure prediction can be improved if for some stretches of the RNA sequence the structure is known. Knowledge about such substructures could come from either experimental or computational studies. Here, we will extend the Nussinov algorithm to consider a single known substructure at a given location. In addition, we require a minimum loop length of 3.
 
@@ -149,3 +149,8 @@ Constraint: .........................(((((xxxxxxx)))))..........................
 
 5. Run the RNAfold webserver without and with constraint. Compare the foldings and describe your observations.
 
+## 1. Introduction
+The Nussinov algorithm is historically the first attempts at RNA secondary structure prediction. It is a dynamic programming algorithm that, given a RNA sequence, recursively finds the secondary structure that maximize the number of base pairs. In the Nussinov algorithm we first initialize a scoring matrix, we decide a minimum loop size and then we start filling each cell by iterating through the diagonals of the matrix. We can give a score to a cell 𝑖,𝑗 by looking at the three neighbor cells and the possible branching structures (bifurcation). We can give a score to a cell 𝑖,𝑗 by looking at the three neighbor cells and the possible branching structures (bifurcation). If we consider 𝐸(𝑖,𝑗) as the maximum number of base pairs for the subsequence 𝑥\[𝑖;𝑗\] , than
+![](pictures/nussi.png)
+
+The Nussinov algorithm is a really simplified version of RNA folding and it has several limitations. It has a computational complexity 𝑂(𝑁^3) and cannot consider pseudoknots, otherwise the computational complexity could reach 𝑂(𝑁^6). An other problem is the ambiguity because often the same structure can be procuded in several ways and the structures with the maximum number of base pairs are often not unique. 
