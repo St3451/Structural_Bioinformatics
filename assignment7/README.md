@@ -16,13 +16,13 @@ Your task is to plot histograms (in PNG format) of the distances of the C-alpha 
     * Make sure the plots have the same x- and y-scale.
 Are the results what you expected?
 
-```python
-#### I must specify that the code for this assignment (and assignment 5) has been provided by my Structural Bioinformatics
-#### professor Thomas Hamelryck (Associate professor, Computational and RNA Biology; University of Copenhagen), which is
-#### also the main author/maintainer of the Bio.PDB module.
-```
-
 ## Implementation
+
+```python
+#### I must specify that the code for this assignment (and assignment 5) has been provided by my 
+#### Structural Bioinformatics professor Thomas Hamelryck (Associate professor, Computational and RNA 
+#### Biology; University of Copenhagen), which is also the main author/maintainer of the Bio.PDB module.
+```
 
 ```python
 from Bio import *

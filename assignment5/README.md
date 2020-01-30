@@ -8,13 +8,15 @@ Use trypsin/trypsin inhibitor complex, pdb code `2PC`.
 3. Output Trypsin to a separate PDB file.
 4. Output all atoms within a sphere of 10 Å of the center of trypsin to a separate PDB file. Use the CA atoms to calculate the center.
 
+## Implementation
+
 ```python
-#### I must specify that the code for this assignment (and assignment 7) has been provided by my Structural Bioinformatics
-#### professor Thomas Hamelryck (Associate professor, Computational and RNA Biology; University of Copenhagen), which is
-#### also the main author/maintainer of the Bio.PDB module.
+#### I must specify that the code for this assignment (and assignment 7) has been provided by my 
+#### Structural Bioinformatics professor Thomas Hamelryck (Associate professor, Computational and RNA 
+#### Biology; University of Copenhagen), which is also the main author/maintainer of the Bio.PDB module.
 ```
 
-## Exercise 1
+### Exercise 1
 
 ```python
 # Import modules
@@ -56,7 +58,7 @@ for res1, res2 in close_residues:
     print("%3s-%3d is close to %3s-%3d" % (res1.get_resname(), res1.get_id()[1], res2.get_resname(), res2.get_id()[1]))
 ```
 
-## Exercise 2
+### Exercise 2
 
 ```python
 # Print phi and psi angles for both proteins using Polypeptide class
