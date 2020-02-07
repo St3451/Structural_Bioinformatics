@@ -1,4 +1,4 @@
-### Plots of the RMSD scores distributions of the 18 different amino acids
+### Plots of the RMSD scores distributions of the 18 different amino acids:
 
 ![](rmsd_hist_CYS.png)
 ![](rmsd_hist_SER.png)
