@@ -97,26 +97,9 @@ Finally I centered the atoms by subtracting the center of mass to each coordinat
 Sometimes the rotation matrix U that minimize the RMSD is aroto-inversion, that will superimpose a mirror image. To avoid that we have to multiply the components of the rotation matrix U for Z = diag(1,1,−1), and we also change the sign to the third element of the diagonal matrix S (even that this is not necessary in the calculation of the RMSD from the coordinates). Than I applyed the rotation matrix U to y and I finally calculated the RMSD from the two set of coordinates.  
 
 ## 3. Results
-The final results of the exercise are the plots of the RMSD scores distributions of the 18 different amino acids. It is possible to observe that, with some exceptions (ASN and ASP), they show three main distributions shapes.
+The final results of the exercise are the [plots of the RMSD scores distributions](https://github.com/St3451/Structural_Bioinformatics/blob/master/8_final_exam/rmsd_histograms/README.md) of the 18 different amino acids. It is possible to observe that, with some exceptions (ASN and ASP), they show three main distributions shapes.
 
-![](pictures/rmsd_hist_CYS.png)
-![](pictures/rmsd_hist_SER.png)
-![](pictures/rmsd_hist_THR.png)
-![](pictures/rmsd_hist_VAL.png)
-![](pictures/rmsd_hist_HIS.png)
-![](pictures/rmsd_hist_ILE.png)
-![](pictures/rmsd_hist_LEU.png)
-![](pictures/rmsd_hist_PHE.png)
-![](pictures/rmsd_hist_PRO.png)
-![](pictures/rmsd_hist_TRP.png)
-![](pictures/rmsd_hist_TYR.png)
-![](pictures/rmsd_hist_ARG.png)
-![](pictures/rmsd_hist_GLN.png)
-![](pictures/rmsd_hist_GLU.png)
-![](pictures/rmsd_hist_LYS.png)
-![](pictures/rmsd_hist_MET.png)
-![](pictures/rmsd_hist_ASN.png)
-![](pictures/rmsd_hist_ASP.png)
+
 
 ## 4. Conclusions
 It is possible to observe that the distributions of RMSD scores exhibit certain patterns depending on the flexibility of the side chain, their size and other characteristics.  
