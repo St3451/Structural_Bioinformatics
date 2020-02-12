@@ -16,8 +16,8 @@ Structure quality
 • The resolution is 2Å (acceptable)  
 • R-factor is 25 (acceptable)  
 • B-factor: there are no electron density maps for this structure, so the information about the B-factor is not available  
-• Ramachandran plot: 1.7% outliers (bad)  
-• Side chains: 3,9% outliers (bad)  
+• Ramachandran plot: 1.7% outliers  
+• Side chains: 3,9% outliers  
 
 The resolution and R-factor of the 1STE file are acceptable but there are several outliers and the information about the B-factor is not available. So even if it has a decent resolution, since there may be several errors in the model I think that the overall quality is not so good.
  
