@@ -41,7 +41,5 @@ The code used in assignment 5 and assigment 7 has been provided by our Structura
 ### 8. Final exam
 * [Hand-in](https://github.com/St3451/Structural_Bioinformatics/tree/master/8_final_exam)
 * [Theory](https://github.com/St3451/Structural_Bioinformatics/blob/master/8_final_exam/Protein_theory.pdf)
-* [Python code - protein part](https://github.com/St3451/Structural_Bioinformatics/blob/master/8_final_exam/protein.py)
-* [Python code - RNA part](https://github.com/St3451/Structural_Bioinformatics/blob/master/8_final_exam/rna.py)
 * [Python code protein](https://github.com/St3451/Structural_Bioinformatics/blob/master/8_final_exam/protein.py)
 * [Python code RNA](https://github.com/St3451/Structural_Bioinformatics/blob/master/8_final_exam/rna.py)
