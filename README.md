@@ -1,6 +1,6 @@
 # Structural Bioinformatics
 
-This repository contains some practical assignments and the final exam of Structural Bioinformatics course (second block of courses of my MSc in Bioinformatics). The course was divided in two parts: protein and RNA.
+This repository contains some practical assignments and the final exam of [Structural Bioinformatics](https://kurser.ku.dk/course/NBIA05014U) course (second block of courses of my MSc in Bioinformatics). The course was divided in two parts: protein and RNA.
 
 We performed some assignments using [PyMOL](https://pymol.org/2/) but we mainly used python for the rest of the course. For the protein part we focussed on using [NumPy](https://docs.scipy.org/doc/numpy/reference/) and [Biopython](https://biopython.org/) (especially [BIO.Pdb](https://biopython.org/wiki/The_Biopython_Structural_Bioinformatics_FAQ) module) packages.
 
